@@ -1,6 +1,7 @@
 export default function Header() {
     return (
         <header className="bg-white] shadow px-6 py-4 flex justify-between items-center">
+            {/* <img src="./images/logo.jpg" alt="" /> */}
             <h1 className="text-xl font-bold text-blue-600">My App</h1>
             <nav>
                 <ul className="flex gap-6 text-gray-700">
