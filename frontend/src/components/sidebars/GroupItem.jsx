@@ -1,6 +1,6 @@
 import SubjectItem from "./SubjectItem";
 
-function GroupItem({ group, subjects, openGroup, setOpenGroup, openSubject, setOpenSubject }) {
+function GroupItem({ group, subjects, openGroup, setOpenGroup, openSubject, setOpenSubject , onSelect }) {
   const isOpen = openGroup === group;
 
   return (
@@ -21,6 +21,7 @@ function GroupItem({ group, subjects, openGroup, setOpenGroup, openSubject, setO
               subject={subject}
               openSubject={openSubject}
               setOpenSubject={setOpenSubject}
+              onSelect={onSelect}
             />
           ))}
         </ul>
