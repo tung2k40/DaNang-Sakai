@@ -13,7 +13,7 @@ export default function Layout({ children }) {
       <div className="flex flex-1">
         <Sidebar onSelect={setSelectedOption} />
         <div className="flex-1 flex flex-col">
-          <main className="flex-1 p-6 bg-gray-100">
+          <main className="flex-1 bg-gray-100">
             {children &&
               React.cloneElement(children, {
                 selectedOption,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import GroupItem from "./GroupItem";
 
 
-function Sidebar({onSelect}) {
+function Sidebar({ onSelect }) {
   const [openGroup, setOpenGroup] = useState(null);
   const [openSubject, setOpenSubject] = useState(null);
 
@@ -24,7 +24,7 @@ function Sidebar({onSelect}) {
   };
 
   return (
-    <aside className="w-64 bg-white h-screen p-4 border-r border-gray-200 shadow-sm">
+    <aside className="w-64 bg-white-500 p-4 border-r border-gray-200 shadow-sm">
       <h2 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
         <i className="fa-solid fa-layer-group text-indigo-500"></i>
         Danh mục môn học
