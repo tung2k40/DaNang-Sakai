@@ -1,36 +1,23 @@
 import SubjectItem from "./SubjectItem";
-function GroupItem({
-  group,
-  subjects,
-  openGroup,
-  setOpenGroup,
-  openSubject,
-  setOpenSubject,
-}) {
-  const toggleGroup = () => {
-    setOpenGroup(openGroup === group ? null : group);
-    setOpenSubject(null);
-  };
+
+function GroupItem({ group, subjects, openGroup, setOpenGroup, openSubject, setOpenSubject }) {
+  const isOpen = openGroup === group;
 
   return (
     <li>
       <button
-        onClick={toggleGroup}
-        className="w-full flex justify-between items-center py-2 px-3 hover:bg-gray-200 rounded-lg font-semibold text-gray-800"
+        onClick={() => setOpenGroup(isOpen ? null : group)}
+        className="w-full flex justify-between items-center px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-md text-gray-700 font-medium"
       >
         <span>{group}</span>
-        <i
-          className={`ti ti-angle-${
-            openGroup === group ? "down" : "right"
-          } text-gray-600`}
-        ></i>
+        <i className={`fa-solid fa-chevron-${isOpen ? "up" : "down"} text-gray-500 text-sm`} />
       </button>
 
-      {openGroup === group && (
-        <ul className="ml-3 mt-2 space-y-1 border-l border-gray-300 pl-2 animate-fade-in">
+      {isOpen && (
+        <ul className="ml-4 mt-2 space-y-1">
           {subjects.map((subject) => (
             <SubjectItem
-              key={subject}
+              key={subject.name}
               subject={subject}
               openSubject={openSubject}
               setOpenSubject={setOpenSubject}
@@ -41,4 +28,5 @@ function GroupItem({
     </li>
   );
 }
+
 export default GroupItem;
