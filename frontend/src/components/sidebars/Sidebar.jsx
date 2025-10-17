@@ -1,11 +1,11 @@
 import { useState } from "react";
 import GroupItem from "./GroupItem";
 
-function Sidebar() {
+
+function Sidebar({onSelect}) {
   const [openGroup, setOpenGroup] = useState(null);
   const [openSubject, setOpenSubject] = useState(null);
 
-  // 🎯 Dữ liệu có icon + màu cho từng môn
   const data = {
     "Khối tự nhiên": [
       { name: "Toán học", icon: "fa-solid fa-square-root-variable", color: "text-indigo-500" },
@@ -40,6 +40,7 @@ function Sidebar() {
             setOpenGroup={setOpenGroup}
             openSubject={openSubject}
             setOpenSubject={setOpenSubject}
+            onSelect={onSelect}
           />
         ))}
       </ul>

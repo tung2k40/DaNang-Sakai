@@ -9,8 +9,8 @@ export default function Header() {
             </div>
             <nav>
                 <ul className="flex gap-6 text-gray-700">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About</a></li>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/about">Về chúng tôi</a></li>
                 </ul>
             </nav>
         </header>

@@ -1,9 +1,15 @@
-function OptionItem({ icon, label, color }) {
+function OptionItem({ icon, label, color, onClick }) {
   return (
-    <li className="flex items-center gap-2 py-1 px-3 hover:bg-gray-200 rounded cursor-pointer text-sm text-gray-600">
-      <i className={`${icon} ${color}`}></i>
-      {label}
+    <li>
+      <button
+        onClick={onClick}
+        className="flex items-center gap-2 text-sm text-gray-700 hover:text-cyan-600 transition"
+      >
+        <i className={`${icon} ${color}`}></i>
+        {label}
+      </button>
     </li>
   );
 }
+
 export default OptionItem;
