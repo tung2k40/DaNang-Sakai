@@ -134,7 +134,7 @@ function SignUpPage() {
             </div>
 
             {/* RIGHT IMAGE */}
-            <div className="hidden md:w-1/2 md:flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/30 to-transparent">
+            <div className="w-full md:w-1/2 flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/30 to-transparent">
               <div>
                 <img
                   src={signup}
