@@ -5,7 +5,7 @@ import GroupItem from "./GroupItem";
 function Sidebar({ onSelect }) {
   const [openGroup, setOpenGroup] = useState(null);
   const [openSubject, setOpenSubject] = useState(null);
-
+  
   const data = {
     "Khối tự nhiên": [
       { name: "Toán học", icon: "fa-solid fa-square-root-variable", color: "text-indigo-500" },
