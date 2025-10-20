@@ -157,7 +157,7 @@ export default function AboutPage() {
         <div className="flex flex-wrap justify-center gap-10">
           {[
             {
-              name: "Nguyễn Thanh Tùng",
+              name: "Hoàng Thanh Tùng",
               role: "Frontend Developer",
               color: "from-blue-500 to-indigo-500",
               avatar: tung,
