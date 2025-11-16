@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import { Mail, Lock, User, GraduationCap } from "lucide-react";
 import signupIllustration from "../../assets/images/signup.png";
 import backgroundlogin from "../../assets/images/bglogin.jpg";
+import {
+  registerAPI,
+  verifyOTP,
+  resendOTP,
+} from '../../api/authAPI';
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -14,6 +19,7 @@ export default function SignUpPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Sign up submitted:", formData);
+
   };
 
   return (

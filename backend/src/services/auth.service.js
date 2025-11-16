@@ -84,7 +84,7 @@ const login = async (email, password) => {
         { expiresIn: ENV.JWT_EXPIRES_IN || '30m' }
     );
 
-    return { token };
+    return { token, user };
 };
 
 module.exports = {

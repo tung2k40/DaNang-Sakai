@@ -33,8 +33,47 @@ const resendOTP = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const result = await authService.login(email, password);
-        res.status(200).json(result);
+        const { token, user } = await authService.login(email, password);
+
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'Strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+            path: '/',
+        });
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'Đăng nhập thành công.',
+        });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+const logout = (req, res) => {
+    res.clearCookie("jwt", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "Strict",
+        path: "/",
+    });
+
+    return res.json({ message: "Đăng xuất thành công" });
+};
+
+const getMe = async (req, res) => {
+    try {
+        return res.status(200).json({
+            status: "success",
+            user: {
+                id: req.user.id,
+                fullName: req.user.fullName,
+                email: req.user.email
+            }
+        });
+
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -44,5 +83,7 @@ module.exports = {
     register,
     verifyOTP,
     resendOTP,
-    login
+    login,
+    logout,
+    getMe,
 };

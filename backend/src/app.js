@@ -4,6 +4,7 @@ const { ENV } = require('./lib/env');
 const { connectDB } = require('../config/db.config');
 const mainRouter = require('./routes/index');
 const cors = require('../config/cors.config');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -11,6 +12,7 @@ const PORT = ENV.PORT || 3000;
 
 app.use(cors);
 app.use(express.json({ limit: '50mb' }));
+app.use(cookieParser());
 
 app.use('/api/v1', mainRouter);
 
