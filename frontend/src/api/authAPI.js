@@ -1,98 +1,60 @@
-import { axiosInstance } from '../lib/axios';
+import { axiosInstance } from "../lib/axios";
 
-export const loginAPI = async (formData) => {
+export const loginAPI = async ({ email, password }) => {
     try {
-        const { email, password } = formData;
-        if (!email || !password) {
-            throw new Error('Email và password không được để trống');
-        }
-
-        const response = await axiosInstance.post(
-            '/auth/login',
-            {
-                email,
-                password,
-            }
-        )
-
-        return response.data;
-    } catch (error) {
-        throw error;
+        const res = await axiosInstance.post("/auth/login", { email, password });
+        return res.data;
+    } catch (err) {
+        // throw err.response?.data?.message || "Đăng nhập thất bại!";
+        throw err.response?.data || err;
     }
-}
+};
 
-export const logoutAPI = async () => {
+export const registerAPI = async ({ email, password, fullName }) => {
     try {
-
-        const response = await axiosInstance.get(
-            '/auth/logout',
-        )
-        return response.data;
-    } catch (error) {
-        throw error;
+        const res = await axiosInstance.post("/auth/register", {
+            email,
+            password,
+            fullName,
+        });
+        return res.data;
+    } catch (err) {
+        // throw err.response?.data?.message || "Đăng ký thất bại!";
+        throw err.response?.data || err;
     }
-}
+};
 
-export const registerAPI = async (email, password, fullName) => {
+export const verifyOTP = async ({ email, otp }) => {
     try {
-        if (!email || password) {
-            throw new Error('Email và password không được để trống');
-        }
-
-        const response = await axiosInstance.post(
-            '/auth/register',
-            {
-                email,
-                password,
-                fullName,
-            }
-        )
-
-        return response.data;
-    } catch (error) {
-        throw error.response ? error.response.data : error;
+        const res = await axiosInstance.post(
+            "/auth/verify-otp",
+            { email, otp }
+        );
+        return res.data;
+    } catch (err) {
+        throw err.response?.data || err;
     }
-}
-
-export const verifyOTP = async (email, otp) => {
-    try {
-        if (!email || password) {
-            throw new Error('Email và password không được để trống');
-        }
-
-        const response = await axiosInstance.post(
-            '/auth/verify-otp',
-            {
-                email,
-                otp,
-            }
-        )
-
-        return response.data;
-    } catch (error) {
-        throw error.response ? error.response.data : error;
-    }
-}
+};
 
 export const resendOTP = async (email) => {
     try {
-        if (!email || password) {
-            throw new Error('Email và password không được để trống');
-        }
-
-        const response = await axiosInstance.post(
-            '/auth/resend-otp',
-            {
-                email,
-                otp,
-            }
-        )
-
-        return response.data;
-    } catch (error) {
-        throw error.response ? error.response.data : error;
+        const res = await axiosInstance.post("/auth/resend-otp", { email });
+        return res.data;
+    } catch (err) {
+        // throw err.response?.data?.message || "Không thể gửi lại OTP!";
+        throw err.response?.data || err;
     }
-}
+};
+
+export const logoutAPI = async () => {
+    try {
+        const res = await axiosInstance.get("/auth/logout");
+        return res.data;
+    } catch (err) {
+        // throw err.response?.data?.message || "Đăng xuất thất bại!";
+        throw err.response?.data || err;
+    }
+};
 
 export const getMeAPI = async () => {
     try {
@@ -101,4 +63,4 @@ export const getMeAPI = async () => {
     } catch (err) {
         return null;
     }
-}
+};

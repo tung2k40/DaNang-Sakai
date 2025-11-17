@@ -30,7 +30,6 @@ export default function LoginPage() {
       setTimeout(() => {
         navigate("/home");
       }, 1000)
-      // TODO: chuyển trang hoặc lưu token
     } catch (err) {
       const msg = err?.response?.data?.error || err.message || "Đăng nhập thất bại!";
       toast.error(msg);
@@ -38,7 +37,7 @@ export default function LoginPage() {
   };
 
   return (
-    <>  <Toaster position="top-right" />
+    <>  <Toaster position="top-center" />
       <div
         className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{

@@ -16,11 +16,13 @@ const register = Joi.object({
     body: Joi.object({
         email: isValidEmail,
         password: Joi.string()
-            .required()
             .pattern(passwordValidator)
+            .required()
             .messages({
-                'string.pattern.base':
-                    'Mật khẩu phải có ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt.',
+                "string.pattern.base":
+                    "Mật khẩu phải có ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt.",
+                "string.empty": "Mật khẩu không được để trống",
+                "any.required": "Mật khẩu là bắt buộc"
             }),
         fullName: Joi.string().min(5).max(50).required(),
     }),
