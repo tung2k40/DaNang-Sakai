@@ -29,8 +29,8 @@ const startServer = async () => {
             console.log(`BASE URL: http://localhost:${PORT}/api/v1`);
         });
     } catch (error) {
-        console.log(`Server can't running: `, error);
-        process.exit(1);
+        console.error('\n❌ Server failed to start:', error.message);
+        throw error;
     }
 };
 
