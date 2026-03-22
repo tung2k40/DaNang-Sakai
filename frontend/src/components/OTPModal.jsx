@@ -85,6 +85,14 @@ export default function OTPModal({ email, onClose, onVerify, onResend }) {
                     Mã OTP đã được gửi đến <span className="font-semibold">{email}</span>
                 </p>
 
+                {/* Warning Message */}
+                <div className="bg-orange-50 border border-orange-200 text-orange-800 text-sm px-4 py-3 rounded-xl mb-6">
+                    <p className="flex items-center gap-2 font-medium mb-1">
+                        <i className="fa-solid fa-triangle-exclamation text-orange-500"></i> Lưu ý quan trọng
+                    </p>
+                    <p>Tài khoản chưa xác thực sẽ tự động bị xóa khỏi hệ thống sau <strong>3 ngày</strong>. Vui lòng xác thực ngay!</p>
+                </div>
+
                 {/* OTP Input */}
                 <div className="flex justify-center gap-3 my-6">
                     {inputs.map((_, index) => (

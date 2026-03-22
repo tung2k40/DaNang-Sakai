@@ -31,7 +31,12 @@ export default function LoginPage() {
         navigate("/home");
       }, 1000)
     } catch (err) {
-      const msg = err?.response?.data?.error || err.message || "Đăng nhập thất bại!";
+      let msg = err?.response?.data?.message || err.message || "Đăng nhập thất bại!";
+      
+      if (msg === "Tài khoản chưa được xác minh") {
+        msg = "Tài khoản chưa xác minh! (Sẽ tự động xóa sau 3 ngày nếu không xác minh)";
+      }
+
       toast.error(msg);
     }
   };

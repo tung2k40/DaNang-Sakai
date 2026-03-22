@@ -31,64 +31,79 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* NAV khi chưa login */}
-        {!user && (
-          <nav>
-            <ul className="flex gap-6 text-gray-700">
-              <li>
-                <Link
-                  to="/"
-                  className="hover:text-blue-600 font-medium transition-colors"
-                >
-                  Trang chủ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/about"
-                  className="hover:text-blue-600 font-medium transition-colors"
-                >
-                  Về chúng tôi
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        )}
-
-        {/* NAV khi đã login */}
-        {user && (
-          <div
-            className="relative group"
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
-          >
-            <div className="cursor-pointer text-gray-700 font-medium group-hover:text-blue-600 transition">
-              Xin chào, <span className="font-semibold">{user.fullName}</span>
-            </div>
-
-            <div className="absolute left-0 right-0 h-4 top-full"></div>
-
-            <div
-              className={`absolute right-0 mt-1 w-44 bg-white rounded-xl shadow-xl border border-gray-200 
-              transition-all duration-200 origin-top-right z-50
-              ${open ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 pointer-events-none translate-y-1"}`}
-            >
-              <button
-                onClick={() => navigate("/about")}
-                className="block w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-t-xl transition"
+        {/* Main Navigation */}
+        <nav>
+          <ul className="flex gap-6 text-gray-700 items-center">
+            <li>
+              <Link
+                to="/"
+                className="hover:text-blue-600 font-medium transition-colors"
+              >
+                Trang chủ
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/about"
+                className="hover:text-blue-600 font-medium transition-colors"
               >
                 Về chúng tôi
-              </button>
+              </Link>
+            </li>
+          </ul>
+        </nav>
 
-              <button
-                onClick={() => setOpenConfirm(true)}
-                className="block w-full text-left px-4 py-2.5 text-red-600 hover:bg-red-50 rounded-b-xl transition"
+        {/* User Actions */}
+        <div className="flex items-center gap-4">
+          {!user ? (
+            <Link
+              to="/login"
+              className="px-5 py-2 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-700 transition"
+            >
+              Đăng nhập
+            </Link>
+          ) : (
+            <div
+              className="relative group flex items-center gap-3 cursor-pointer"
+              onMouseEnter={() => setOpen(true)}
+              onMouseLeave={() => setOpen(false)}
+            >
+              <div className="text-gray-700 font-medium group-hover:text-blue-600 transition flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center border border-blue-200">
+                  {user.fullName ? user.fullName[0].toUpperCase() : "U"}
+                </div>
+                <span className="hidden sm:inline">Xin chào, <span className="font-semibold">{user.fullName}</span></span>
+              </div>
+
+              <div className="absolute left-0 right-0 h-4 top-full"></div>
+
+              <div
+                className={`absolute right-0 mt-1 top-full w-48 bg-white rounded-xl shadow-xl border border-gray-200 
+                transition-all duration-200 origin-top-right z-50
+                ${open ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 pointer-events-none translate-y-1"}`}
               >
-                Đăng xuất
-              </button>
+                <div className="px-4 py-3 border-b border-gray-100 sm:hidden">
+                    <p className="text-sm text-gray-500">Đăng nhập với tên</p>
+                    <p className="font-semibold text-gray-800 line-clamp-1">{user.fullName}</p>
+                </div>
+                
+                <button
+                  onClick={() => navigate("/profile")}
+                  className="block w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition flex items-center gap-2"
+                >
+                  <i className="fa-solid fa-user text-blue-500"></i> Hồ sơ cá nhân
+                </button>
+
+                <button
+                  onClick={() => setOpenConfirm(true)}
+                  className="block w-full text-left px-4 py-2.5 text-red-600 hover:bg-red-50 rounded-b-xl transition flex items-center gap-2"
+                >
+                  <i className="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </header>
 
       {/* Confirm Logout */}
