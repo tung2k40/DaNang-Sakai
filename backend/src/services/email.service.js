@@ -1,24 +1,29 @@
-const { Resend } = require('resend');
-const { ENV } = require('../lib/env');
+const { Resend } = require("resend");
+const { ENV } = require("../lib/env");
 
 let resendClient = null;
 const getResend = () => {
-    if (!ENV.RESEND_API_KEY) return null;
-    if (!resendClient) resendClient = new Resend(ENV.RESEND_API_KEY);
-    return resendClient;
+  if (!ENV.RESEND_API_KEY) return null;
+  if (!resendClient) resendClient = new Resend(ENV.RESEND_API_KEY);
+  return resendClient;
 };
 
 const sendOTP = async (to, otp) => {
-    const resend = getResend();
-    if (!resend) {
-        throw new Error('RESEND_API_KEY is not configured');
-    }
-    try {
-        await resend.emails.send({
-            from: `${ENV.EMAIL_FROM_NAME} <${ENV.EMAIL_FROM}>`,
-            to: [to],
-            subject: 'Danangscholar Security Verification Code',
-            html: `
+  const resend = getResend();
+  if (!resend) {
+    console.warn(`\n========================================`);
+    console.warn(`[DEV MODE] RESEND_API_KEY is not configured!`);
+    console.warn(`[DEV MODE] Mock email sent to: ${to}`);
+    console.warn(`[DEV MODE] Your OTP is: ${otp}`);
+    console.warn(`========================================\n`);
+    return;
+  }
+  try {
+    const { data, error } = await resend.emails.send({
+      from: "ThanhTung <onboarding@resend.dev>",
+      to: [to],
+      subject: "Danangscholar Security Verification Code",
+      html: `
                 <div style="
                     font-family: 'Segoe UI', Tahoma, sans-serif;
                     max-width: 420px;
@@ -35,7 +40,7 @@ const sendOTP = async (to, otp) => {
                     margin-bottom: 8px;
                     text-align: center;
                     ">
-                    Welcome to ${ENV.EMAIL_FROM_NAME}
+                    Welcome to DanangScholar
                     </h2>
                     <p style="
                     color: #444;
@@ -75,18 +80,25 @@ const sendOTP = async (to, otp) => {
                     text-align: center;
                     margin-top: 16px;
                     ">
-                    — ${ENV.EMAIL_FROM_NAME} Team
+                    — DanangScholar Team
                     </p>
                 </div>
             `,
-        });
-        console.log(`OTP sent successfully to ${to}`);
-    } catch (error) {
-        const msg = error?.message || String(error);
-        throw new Error(`Failed to send OTP: ${msg}`);
+      replyTo: "onboarding@resend.dev",
+    });
+
+    if (error) {
+      console.error("[RESEND API ERROR]", error);
+      throw new Error(error.message);
     }
+
+    console.log(`OTP sent successfully to ${to}, response ID: ${data?.id}`);
+  } catch (error) {
+    const msg = error?.message || String(error);
+    throw new Error(`Failed to send OTP via Resend: ${msg}`);
+  }
 };
 
 module.exports = {
-    sendOTP,
-}
+  sendOTP,
+};

@@ -100,6 +100,7 @@ const getMe = async (req, res) => {
                 id: req.user.id,
                 fullName: req.user.fullName,
                 email: req.user.email,
+                verified: true,
             },
         });
 
