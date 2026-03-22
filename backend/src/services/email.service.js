@@ -1,9 +1,18 @@
 const { Resend } = require('resend');
 const { ENV } = require('../lib/env');
 
-const resend = new Resend(ENV.RESEND_API_KEY);
+let resendClient = null;
+const getResend = () => {
+    if (!ENV.RESEND_API_KEY) return null;
+    if (!resendClient) resendClient = new Resend(ENV.RESEND_API_KEY);
+    return resendClient;
+};
 
 const sendOTP = async (to, otp) => {
+    const resend = getResend();
+    if (!resend) {
+        throw new Error('RESEND_API_KEY is not configured');
+    }
     try {
         await resend.emails.send({
             from: `${ENV.EMAIL_FROM_NAME} <${ENV.EMAIL_FROM}>`,
@@ -73,7 +82,8 @@ const sendOTP = async (to, otp) => {
         });
         console.log(`OTP sent successfully to ${to}`);
     } catch (error) {
-        throw new Error('Failed to send OTP:', error);
+        const msg = error?.message || String(error);
+        throw new Error(`Failed to send OTP: ${msg}`);
     }
 };
 
