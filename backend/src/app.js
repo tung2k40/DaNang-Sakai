@@ -1,5 +1,15 @@
 const express = require('express');
 const http = require('http');
+
+process.on('uncaughtException', (err) => {
+    console.error('🔥 UNCAUGHT EXCEPTION:', err);
+    setTimeout(() => process.exit(1), 500);
+});
+
+process.on('unhandledRejection', (err) => {
+    console.error('🔥 UNHANDLED REJECTION:', err);
+    setTimeout(() => process.exit(1), 500);
+});
 const { ENV } = require('./lib/env');
 const { connectDB } = require('../config/db.config');
 const mainRouter = require('./routes/index');
@@ -29,8 +39,8 @@ const startServer = async () => {
             console.log(`BASE URL: http://localhost:${PORT}/api/v1`);
         });
     } catch (error) {
-        console.error('\n❌ Server failed to start:', error.message);
-        throw error;
+        console.error('\n❌ Server failed to start:', error);
+        setTimeout(() => process.exit(1), 500);
     }
 };
 
