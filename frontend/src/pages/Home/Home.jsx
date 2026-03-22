@@ -14,7 +14,7 @@ function Home({ selectedOption }) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-6">
       {/* Hero Section */}
-      <div className="flex flex-col items-center text-center mt-8 mb-16">
+      <div className="flex flex-col items-center text-center mt-8 mb-8">
         <motion.h1
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -38,6 +38,12 @@ function Home({ selectedOption }) {
           một cách dễ dàng. Hệ thống phân loại rõ ràng theo khối học và cập nhật
           liên tục để hỗ trợ bạn học hiệu quả nhất!
         </motion.p>
+      </div>
+
+      {/* Dữ liệu từ API (MongoDB) */}
+      <div className="max-w-6xl mx-auto w-full space-y-4 mb-16">
+        <DocumentSection />
+        <ExamSection />
       </div>
 
       {/* Feature Cards */}
