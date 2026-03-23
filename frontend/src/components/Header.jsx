@@ -4,7 +4,9 @@ import { useAuth } from "../contexts/AuthContext";
 import { logoutAPI } from "../api/authAPI";
 import Confirm from "../components/ui/Confirm";
 import UploadDocumentModal from "./UploadDocumentModal";
+import UploadExamModal from "./UploadExamModal";
 import logo from "../assets/images/logo.jpg";
+import { toast } from "react-hot-toast";
 
 export default function Header() {
   const { user, setUser } = useAuth();
@@ -12,6 +14,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openUpload, setOpenUpload] = useState(false);
+  const [openExamUpload, setOpenExamUpload] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -66,12 +69,20 @@ export default function Header() {
             </Link>
           ) : (
             <>
-              <button
-                onClick={() => setOpenUpload(true)}
-                className="hidden sm:flex px-4 py-2 bg-blue-50 text-blue-700 font-semibold rounded-full border border-blue-200 hover:bg-blue-100 hover:shadow-sm transition items-center gap-2"
-              >
-                <i className="fa-solid fa-cloud-arrow-up"></i> Tải tài liệu
-              </button>
+              <div className="hidden sm:flex items-center gap-2">
+                <button
+                  onClick={() => setOpenUpload(true)}
+                  className="px-4 py-2 bg-blue-50 text-blue-700 font-semibold rounded-full border border-blue-200 hover:bg-blue-100 hover:shadow-sm transition items-center gap-2"
+                >
+                  <i className="fa-solid fa-cloud-arrow-up"></i> Tải tài liệu
+                </button>
+                <button
+                  onClick={() => setOpenExamUpload(true)}
+                  className="px-4 py-2 bg-green-50 text-green-700 font-semibold rounded-full border border-green-200 hover:bg-green-100 hover:shadow-sm transition items-center gap-2 flex"
+                >
+                  <i className="fa-solid fa-file-arrow-up"></i> Tải đề thi
+                </button>
+              </div>
               <div
                 className="relative group flex items-center gap-3 cursor-pointer"
                 onMouseEnter={() => setOpen(true)}
@@ -101,6 +112,20 @@ export default function Header() {
                   className="block w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition flex items-center gap-2"
                 >
                   <i className="fa-solid fa-user text-blue-500"></i> Hồ sơ cá nhân
+                </button>
+
+                <button
+                  onClick={() => setOpenUpload(true)}
+                  className="block sm:hidden w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition flex items-center gap-2"
+                >
+                  <i className="fa-solid fa-cloud-arrow-up text-blue-500"></i> Tải tài liệu
+                </button>
+
+                <button
+                  onClick={() => setOpenExamUpload(true)}
+                  className="block sm:hidden w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-green-600 transition flex items-center gap-2"
+                >
+                  <i className="fa-solid fa-file-arrow-up text-green-500"></i> Tải đề thi
                 </button>
 
                 <button
@@ -134,8 +159,16 @@ export default function Header() {
         isOpen={openUpload} 
         onClose={() => setOpenUpload(false)} 
         onSuccess={() => {
-          // Could refresh documents list if on documents page, or just show alert
-          alert('Tải lên tài liệu thành công!');
+          toast.success('Tải lên tài liệu thành công!');
+        }} 
+      />
+
+      {/* Upload Exam Modal */}
+      <UploadExamModal 
+        isOpen={openExamUpload} 
+        onClose={() => setOpenExamUpload(false)} 
+        onSuccess={() => {
+          toast.success('Tải lên đề thi thành công!');
         }} 
       />
     </>

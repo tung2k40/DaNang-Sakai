@@ -19,3 +19,12 @@ export const getExamByIdAPI = async (id) => {
         throw err.response?.data || err;
     }
 };
+
+export const uploadExamAPI = async (formData) => {
+    try {
+        const res = await axiosInstance.post('/exams', formData);
+        return res.data;
+    } catch (err) {
+        throw err.response?.data || err;
+    }
+};

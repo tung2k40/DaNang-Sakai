@@ -22,11 +22,7 @@ export const getDocumentByIdAPI = async (id) => {
 
 export const uploadDocumentAPI = async (formData) => {
     try {
-        const res = await axiosInstance.post('/documents', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+        const res = await axiosInstance.post('/documents', formData);
         return res.data;
     } catch (err) {
         throw err.response?.data || err;

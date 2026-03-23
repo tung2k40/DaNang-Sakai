@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { uploadDocumentAPI } from "../api/documentAPI";
+import { uploadExamAPI } from "../api/examAPI";
 
-export default function UploadDocumentModal({ isOpen, onClose, onSuccess }) {
+export default function UploadExamModal({ isOpen, onClose, onSuccess }) {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -44,13 +44,13 @@ export default function UploadDocumentModal({ isOpen, onClose, onSuccess }) {
                 data.append("fileUrl", formData.fileUrl);
             }
 
-            await uploadDocumentAPI(data);
+            await uploadExamAPI(data);
             setLoading(false);
             if (onSuccess) onSuccess();
             onClose();
         } catch (err) {
             setLoading(false);
-            setError(err.message || "Tải tài liệu thất bại!");
+            setError(err.message || "Tải đề thi thất bại!");
         }
     };
 
@@ -58,7 +58,7 @@ export default function UploadDocumentModal({ isOpen, onClose, onSuccess }) {
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
             <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up">
                 <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
-                    <h2 className="text-xl font-bold text-gray-800">Tải lên tài liệu</h2>
+                    <h2 className="text-xl font-bold text-gray-800">Tải lên đề thi</h2>
                     <button
                         onClick={onClose}
                         className="p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 rounded-full transition-colors"
@@ -75,12 +75,12 @@ export default function UploadDocumentModal({ isOpen, onClose, onSuccess }) {
                     )}
                     
                     <div className="space-y-1">
-                        <label className="text-sm font-semibold text-gray-700">Tên tác giả</label>
+                        <label className="text-sm font-semibold text-gray-700">Người đăng / Giảng viên</label>
                         <input
                             type="text"
                             name="author"
                             required
-                            placeholder="Nhập tên của bạn"
+                            placeholder="Nhập tên người đăng đề"
                             value={formData.author}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
@@ -88,7 +88,7 @@ export default function UploadDocumentModal({ isOpen, onClose, onSuccess }) {
                     </div>
 
                     <div className="space-y-1">
-                        <label className="text-sm font-semibold text-gray-700">Tiêu đề tài liệu</label>
+                        <label className="text-sm font-semibold text-gray-700">Tên đề thi</label>
                         <input
                             type="text"
                             name="title"
@@ -114,29 +114,27 @@ export default function UploadDocumentModal({ isOpen, onClose, onSuccess }) {
                             />
                         </div>
                         <div className="space-y-1">
-                            <label className="text-sm font-semibold text-gray-700">Loại báo cáo</label>
+                            <label className="text-sm font-semibold text-gray-700">Loại đề</label>
                             <select
                                 name="type"
                                 value={formData.type}
                                 onChange={handleChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition bg-white"
                             >
-                                <option value="PDF">PDF (Văn bản cứng)</option>
-                                <option value="Word">Word (Văn bản mềm)</option>
-                                <option value="Excel">Excel (Bảng tính)</option>
-                                <option value="PowerPoint">PowerPoint (Trình chiếu)</option>
-                                <option value="Video">Video (Ghi hình)</option>
+                                <option value="PDF">PDF (File cứng)</option>
+                                <option value="Word">Word (Bản mềm)</option>
+                                <option value="Quiz">Quiz (Trắc nghiệm)</option>
                             </select>
                         </div>
                     </div>
 
                     <div className="space-y-1">
-                        <label className="text-sm font-semibold text-gray-700">Mô tả</label>
+                        <label className="text-sm font-semibold text-gray-700">Mô tả thêm</label>
                         <textarea
                             name="description"
                             required
                             rows="3"
-                            placeholder="Giới thiệu đôi nét về tài liệu này..."
+                            placeholder="Mô tả cấu trúc đề, năm thi..."
                             value={formData.description}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition resize-none"
@@ -145,7 +143,7 @@ export default function UploadDocumentModal({ isOpen, onClose, onSuccess }) {
 
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                            <label className="text-sm font-semibold text-gray-700">Nguồn tài liệu</label>
+                            <label className="text-sm font-semibold text-gray-700">Nguồn đề thi</label>
                             <div className="flex bg-gray-100 rounded-lg p-1">
                                 <button
                                     type="button"
@@ -169,7 +167,7 @@ export default function UploadDocumentModal({ isOpen, onClose, onSuccess }) {
                                 type="file"
                                 onChange={handleFileChange}
                                 required={uploadMethod === "file"}
-                                className="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
+                                className="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-green-700 hover:file:bg-green-100 cursor-pointer"
                             />
                         ) : (
                             <input
@@ -179,7 +177,7 @@ export default function UploadDocumentModal({ isOpen, onClose, onSuccess }) {
                                 value={formData.fileUrl}
                                 onChange={handleChange}
                                 required={uploadMethod === "link"}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
                             />
                         )}
                     </div>

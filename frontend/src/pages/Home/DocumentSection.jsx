@@ -66,7 +66,11 @@ function DocumentSection({ subject } = {}) {
                     className={`absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1 px-4 py-1 rounded-full border text-[13px] font-semibold shadow-sm ${
                       doc.type === "PDF"
                         ? "bg-red-50 border-red-300 text-red-600"
-                        : doc.type === "Slide"
+                        : doc.type === "Word"
+                        ? "bg-indigo-50 border-indigo-300 text-indigo-600"
+                        : doc.type === "Excel"
+                        ? "bg-green-50 border-green-300 text-green-600"
+                        : doc.type === "PowerPoint"
                         ? "bg-orange-50 border-orange-300 text-orange-600"
                         : "bg-emerald-50 border-emerald-300 text-emerald-600"
                     }`}
@@ -75,7 +79,11 @@ function DocumentSection({ subject } = {}) {
                       className={`fa-solid ${
                         doc.type === "PDF"
                           ? "fa-file-pdf"
-                          : doc.type === "Slide"
+                          : doc.type === "Word"
+                          ? "fa-file-word"
+                          : doc.type === "Excel"
+                          ? "fa-file-excel"
+                          : doc.type === "PowerPoint"
                           ? "fa-file-powerpoint"
                           : "fa-video"
                       }`}
