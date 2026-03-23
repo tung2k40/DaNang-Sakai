@@ -33,6 +33,9 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        if (req.file) {
+            req.body.fileUrl = `/api/v1/uploads/${req.file.filename}`;
+        }
         const document = await documentService.create(req.body, req.user.id);
         return res.status(201).json({
             status: 'success',

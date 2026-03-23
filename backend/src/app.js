@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+const path = require('path');
 
 process.on('uncaughtException', (err) => {
     console.error('🔥 UNCAUGHT EXCEPTION:', err);
@@ -23,6 +24,9 @@ const PORT = ENV.PORT || 3000;
 app.use(cors);
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
+
+// Phục vụ các file tĩnh trong thư mục uploads thông qua proxy /api/v1
+app.use('/api/v1/uploads', express.static(path.join(__dirname, '../../uploads')));
 
 app.use('/api/v1', mainRouter);
 
