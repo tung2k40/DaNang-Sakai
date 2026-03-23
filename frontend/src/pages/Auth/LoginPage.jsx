@@ -4,13 +4,12 @@ import { Mail, Lock, GraduationCap } from "lucide-react";
 import loginIllustration from "../../assets/images/login.png";
 import backgroundlogin from "../../assets/images/bglogin.jpg";
 import { loginAPI } from "../../api/authAPI";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { fetchUser } = useAuth();
 
@@ -22,44 +21,32 @@ export default function LoginPage() {
       return toast.error("Email và mật khẩu không được để trống!");
     }
 
-    if (isLoading) return;
-    setIsLoading(true);
-
-    // Warn user if server is slow (Render cold start)
-    const slowTimer = setTimeout(() => {
-      toast.loading("Server đang khởi động, vui lòng chờ...", { id: "slow-warn" });
-    }, 5000);
-
     try {
       await loginAPI(formData);
-
-      clearTimeout(slowTimer);
-      toast.dismiss("slow-warn");
 
       await fetchUser();
       toast.success("Đăng nhập thành công!");
 
       setTimeout(() => {
         navigate("/home");
-      }, 1000)
+      }, 1000);
     } catch (err) {
-      clearTimeout(slowTimer);
-      toast.dismiss("slow-warn");
+      let msg =
+        err?.response?.data?.message || err.message || "Đăng nhập thất bại!";
 
-      let msg = err?.response?.data?.message || err.message || "Đăng nhập thất bại!";
-      
       if (msg === "Tài khoản chưa được xác minh") {
-        msg = "Tài khoản chưa xác minh! (Sẽ tự động xóa sau 3 ngày nếu không xác minh)";
+        msg =
+          "Tài khoản chưa xác minh! (Sẽ tự động xóa sau 3 ngày nếu không xác minh)";
       }
 
       toast.error(msg);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
-    <>  <Toaster position="top-center" />
+    <>
+      {" "}
+      <Toaster position="top-center" />
       <div
         className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{
@@ -119,16 +106,9 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                disabled={isLoading}
-                className="w-full bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-400 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-cyan-400/50 hover:shadow-cyan-400/80 mt-6 flex items-center justify-center gap-2"
+                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-cyan-400/50 hover:shadow-cyan-400/80 mt-6"
               >
-                {isLoading && (
-                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                  </svg>
-                )}
-                {isLoading ? "Đang đăng nhập..." : "Sign In"}
+                Sign In
               </button>
             </form>
 
