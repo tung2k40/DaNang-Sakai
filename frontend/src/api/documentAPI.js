@@ -19,3 +19,16 @@ export const getDocumentByIdAPI = async (id) => {
         throw err.response?.data || err;
     }
 };
+
+export const uploadDocumentAPI = async (formData) => {
+    try {
+        const res = await axiosInstance.post('/documents', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return res.data;
+    } catch (err) {
+        throw err.response?.data || err;
+    }
+};

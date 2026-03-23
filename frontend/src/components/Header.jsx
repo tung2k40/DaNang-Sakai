@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { logoutAPI } from "../api/authAPI";
 import Confirm from "../components/ui/Confirm";
+import UploadDocumentModal from "./UploadDocumentModal";
 import logo from "../assets/images/logo.jpg";
 
 export default function Header() {
@@ -10,6 +11,7 @@ export default function Header() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
+  const [openUpload, setOpenUpload] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -63,11 +65,18 @@ export default function Header() {
               Đăng nhập
             </Link>
           ) : (
-            <div
-              className="relative group flex items-center gap-3 cursor-pointer"
-              onMouseEnter={() => setOpen(true)}
-              onMouseLeave={() => setOpen(false)}
-            >
+            <>
+              <button
+                onClick={() => setOpenUpload(true)}
+                className="hidden sm:flex px-4 py-2 bg-blue-50 text-blue-700 font-semibold rounded-full border border-blue-200 hover:bg-blue-100 hover:shadow-sm transition items-center gap-2"
+              >
+                <i className="fa-solid fa-cloud-arrow-up"></i> Tải tài liệu
+              </button>
+              <div
+                className="relative group flex items-center gap-3 cursor-pointer"
+                onMouseEnter={() => setOpen(true)}
+                onMouseLeave={() => setOpen(false)}
+              >
               <div className="text-gray-700 font-medium group-hover:text-blue-600 transition flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center border border-blue-200">
                   {user.fullName ? user.fullName[0].toUpperCase() : "U"}
@@ -102,6 +111,7 @@ export default function Header() {
                 </button>
               </div>
             </div>
+            </>
           )}
         </div>
       </header>
@@ -118,6 +128,16 @@ export default function Header() {
           }}
         />
       )}
+
+      {/* Upload Document Modal */}
+      <UploadDocumentModal 
+        isOpen={openUpload} 
+        onClose={() => setOpenUpload(false)} 
+        onSuccess={() => {
+          // Could refresh documents list if on documents page, or just show alert
+          alert('Tải lên tài liệu thành công!');
+        }} 
+      />
     </>
   );
 }
