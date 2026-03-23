@@ -1,4 +1,5 @@
 const examService = require('../services/exam.service');
+const { uploadFileToSupabase } = require('../services/supabase.service');
 
 const getAll = async (req, res) => {
     try {
@@ -33,6 +34,14 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        if (req.file) {
+            const supabaseFileUrl = await uploadFileToSupabase(
+                req.file.buffer,
+                req.file.originalname,
+                req.file.mimetype
+            );
+            req.body.fileUrl = supabaseFileUrl;
+        }
         const exam = await examService.create(req.body, req.user.id);
         return res.status(201).json({
             status: 'success',

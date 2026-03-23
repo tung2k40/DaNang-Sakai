@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const DOCUMENT_TYPES = ['PDF', 'Slide', 'Video'];
+const DOCUMENT_TYPES = ['PDF', 'Word', 'Excel', 'PowerPoint', 'Video'];
 
 const create = Joi.object({
     body: Joi.object({

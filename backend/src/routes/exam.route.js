@@ -3,6 +3,7 @@ const { validate } = require('../middleware/validate');
 const examValidator = require('../validations/exam.validation');
 const examController = require('../controllers/exam.controller');
 const { protect } = require('../middleware/auth.middleware');
+const upload = require('../middleware/upload.middleware');
 
 const router = express.Router();
 
@@ -13,6 +14,7 @@ router.get('/:id', examController.getById);
 router.post(
     '/',
     protect,
+    upload.single('file'),
     validate(examValidator.create),
     examController.create
 );

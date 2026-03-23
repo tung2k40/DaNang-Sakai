@@ -9,7 +9,7 @@ const documentSchema = new mongoose.Schema(
         },
         type: {
             type: String,
-            enum: ['PDF', 'Slide', 'Video'],
+            enum: ['PDF', 'Word', 'Excel', 'PowerPoint', 'Video'],
             required: true,
         },
         subject: {

@@ -25,7 +25,7 @@ const create = Joi.object({
             'string.empty': 'Mô tả không được để trống',
             'any.required': 'Mô tả là bắt buộc',
         }),
-        fileUrl: Joi.string().uri().optional().allow(''),
+        fileUrl: Joi.string().optional().allow(''),
     }),
 });
 
