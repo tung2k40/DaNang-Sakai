@@ -64,3 +64,21 @@ export const getMeAPI = async () => {
         return null;
     }
 };
+
+export const forgotPasswordAPI = async (email) => {
+    try {
+        const res = await axiosInstance.post("/auth/forgot-password", { email });
+        return res.data;
+    } catch (err) {
+        throw err.response?.data || err;
+    }
+};
+
+export const resetPasswordAPI = async ({ email, otp, newPassword }) => {
+    try {
+        const res = await axiosInstance.post("/auth/reset-password", { email, otp, newPassword });
+        return res.data;
+    } catch (err) {
+        throw err.response?.data || err;
+    }
+};

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function OTPModal({ email, onClose, onVerify, onResend }) {
     const [otp, setOtp] = useState("");
@@ -62,6 +63,10 @@ export default function OTPModal({ email, onClose, onVerify, onResend }) {
 
     const handleVerify = (e) => {
         e.preventDefault();
+        if (!otp || otp.length < 6) {
+            toast.error("Vui lòng nhập đủ 6 số mã OTP!");
+            return;
+        }
         onVerify(otp);
     };
 

@@ -25,7 +25,7 @@ export default function SignUpPage() {
     e.preventDefault();
 
     if (!formData.fullName) {
-      return toast.error("FullName không được để trống!");
+      return toast.error("Họ và tên không được để trống!");
     }
 
     if (!formData.email) {
@@ -33,7 +33,7 @@ export default function SignUpPage() {
     }
 
     if (!formData.password) {
-      return toast.error("Passowrd không được để trống!");
+      return toast.error("Mật khẩu không được để trống!");
     }
 
     try {
@@ -70,7 +70,7 @@ export default function SignUpPage() {
   const handlResendOTP = async () => {
     try {
       await resendOTP(formData.email);
-      toast.success("OTP mới đã gửi!");
+      toast.success("Đã gửi mã OTP mới!");
     } catch (err) {
       const msg = err?.response?.data?.message || err?.message || "OTP không hợp lệ!";
       toast.error(msg);

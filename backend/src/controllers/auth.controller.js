@@ -107,6 +107,40 @@ const getMe = async (req, res) => {
   }
 };
 
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const result = await authService.forgotPassword(email);
+
+    return res.status(200).json({
+      status: "success",
+      message: result.message,
+    });
+  } catch (error) {
+    return res.status(error.statusCode || 400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+    const result = await authService.resetPassword(email, otp, newPassword);
+
+    return res.status(200).json({
+      status: "success",
+      message: result.message,
+    });
+  } catch (error) {
+    return res.status(error.statusCode || 400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   register,
   verifyOTP,
@@ -114,4 +148,6 @@ module.exports = {
   login,
   logout,
   getMe,
+  forgotPassword,
+  resetPassword,
 };

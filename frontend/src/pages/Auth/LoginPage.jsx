@@ -7,9 +7,11 @@ import { loginAPI } from "../../api/authAPI";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import ForgotPasswordModal from "../../components/ForgotPasswordModal";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [showForgotModal, setShowForgotModal] = useState(false);
   const navigate = useNavigate();
   const { fetchUser } = useAuth();
 
@@ -33,11 +35,6 @@ export default function LoginPage() {
     } catch (err) {
       let msg =
         err?.response?.data?.message || err.message || "Đăng nhập thất bại!";
-
-      if (msg === "Tài khoản chưa được xác minh") {
-        msg =
-          "Tài khoản chưa xác minh! (Sẽ tự động xóa sau 3 ngày nếu không xác minh)";
-      }
 
       toast.error(msg);
     }
@@ -110,6 +107,11 @@ export default function LoginPage() {
               >
                 Sign In
               </button>
+              <div className="text-right mt-2">
+                <button type="button" onClick={() => setShowForgotModal(true)} className="text-sm text-cyan-600 hover:text-cyan-800 font-medium transition-colors">
+                  Quên mật khẩu?
+                </button>
+              </div>
             </form>
 
             <p className="text-center mt-5 text-sm text-gray-600">
@@ -149,6 +151,7 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+      {showForgotModal && <ForgotPasswordModal onClose={() => setShowForgotModal(false)} />}
     </>
   );
 }

@@ -41,4 +41,16 @@ router.get(
     authController.logout
 )
 
-module.exports = router
+router.post(
+    '/forgot-password',
+    validate(authValidator.forgotPassword),
+    authController.forgotPassword
+);
+
+router.post(
+    '/reset-password',
+    validate(authValidator.resetPassword),
+    authController.resetPassword
+);
+
+module.exports = router;
