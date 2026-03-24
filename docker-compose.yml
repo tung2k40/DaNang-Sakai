@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: danang_sakai_backend
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount the whole backend folder to /app to enable hot-reload via nodemon
+      - ./backend:/app
+      # Prevent local node_modules from overwriting the container's linux node_modules
+      - /app/node_modules
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: danang_sakai_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      # Mount the frontend folder to /app to enable Vite HMR (hot module replacement)
+      - ./frontend:/app
+      # Prevent local node_modules from overwriting
+      - /app/node_modules
+    env_file:
+      - ./frontend/.env
+    environment:
+      - VITE_PROXY_TARGET=http://backend:3000
+    depends_on:
+      - backend

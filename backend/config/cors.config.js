@@ -27,6 +27,8 @@ const corsOptions = {
             callback(null, true);
             return;
         }
+        
+        console.error(`🚨 CORS blocked request from origin: ${origin}. Make sure this origin is in CLIENT_URL or CORS_ORIGINS.`);
         callback(new Error('Not allowed by CORS'));
     },
     credentials: true,
