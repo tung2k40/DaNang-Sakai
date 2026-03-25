@@ -9,6 +9,8 @@ const router = express.Router();
 
 router.get('/', examController.getAll);
 
+router.get('/mine', protect, examController.getMine);
+
 router.get('/:id', examController.getById);
 
 router.post(

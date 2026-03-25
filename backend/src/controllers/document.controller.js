@@ -70,4 +70,19 @@ const remove = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, create, remove };
+const getMine = async (req, res) => {
+    try {
+        const documents = await documentService.getByUserId(req.user.id);
+        return res.status(200).json({
+            status: 'success',
+            data: documents,
+        });
+    } catch (error) {
+        return res.status(error.statusCode || 500).json({
+            status: 'error',
+            message: error.message,
+        });
+    }
+};
+
+module.exports = { getAll, getById, create, remove, getMine };

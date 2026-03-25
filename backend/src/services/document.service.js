@@ -24,4 +24,9 @@ const remove = async (id) => {
     return document;
 };
 
-module.exports = { getAll, getById, create, remove };
+const getByUserId = async (userId) => {
+    const documents = await Document.find({ uploadedBy: userId }).sort({ createdAt: -1 });
+    return documents;
+};
+
+module.exports = { getAll, getById, create, remove, getByUserId };

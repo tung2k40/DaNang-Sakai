@@ -9,6 +9,8 @@ const router = express.Router();
 
 router.get('/', documentController.getAll);
 
+router.get('/mine', protect, documentController.getMine);
+
 router.get('/:id', documentController.getById);
 
 router.post(
