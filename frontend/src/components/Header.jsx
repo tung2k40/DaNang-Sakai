@@ -39,22 +39,7 @@ export default function Header() {
         {/* Main Navigation */}
         <nav>
           <ul className="flex gap-6 text-gray-700 items-center">
-            <li>
-              <Link
-                to="/"
-                className="hover:text-blue-600 font-medium transition-colors"
-              >
-                Trang chủ
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/about"
-                className="hover:text-blue-600 font-medium transition-colors"
-              >
-                Về chúng tôi
-              </Link>
-            </li>
+            {/* Navigation links could go here in the future if needed */}
           </ul>
         </nav>
 

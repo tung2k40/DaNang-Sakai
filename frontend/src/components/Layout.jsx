@@ -4,11 +4,13 @@ import Header from "./Header";
 import Sidebar from "./sidebars/Sidebar";
 import Footer from "./Footer";
 import React from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Layout({ children }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
 
   // 🔁 Khi chọn tài liệu hoặc đề thi => tự chuyển về /home
   useEffect(() => {
@@ -18,12 +20,12 @@ export default function Layout({ children }) {
   }, [selectedOption, location.pathname, navigate]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative overflow-x-hidden">
       <Header />
-      <div className="flex flex-1">
-        <Sidebar onSelect={setSelectedOption} />
-        <div className="flex-1 flex flex-col">
-          <main className="flex-1 bg-gray-100">
+      <div className="flex flex-1 relative w-full">
+        {user && <Sidebar onSelect={setSelectedOption} />}
+        <div className="flex-1 flex flex-col min-w-0 w-full relative">
+          <main className="flex-1 bg-gray-50">
             {children &&
               React.cloneElement(children, {
                 selectedOption,

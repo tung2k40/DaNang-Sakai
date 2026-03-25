@@ -103,15 +103,29 @@ export default function UploadDocumentModal({ isOpen, onClose, onSuccess }) {
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1">
                             <label className="text-sm font-semibold text-gray-700">Môn học</label>
-                            <input
-                                type="text"
+                            <select
                                 name="subject"
                                 required
-                                placeholder="Toán, Lý, Hoá..."
                                 value={formData.subject}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-                            />
+                                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition bg-white"
+                            >
+                                <option value="" disabled>Chọn môn học</option>
+                                <optgroup label="Khối tự nhiên">
+                                    <option value="Toán học">Toán học</option>
+                                    <option value="Vật lý">Vật lý</option>
+                                    <option value="Hóa học">Hóa học</option>
+                                    <option value="Sinh học">Sinh học</option>
+                                    <option value="Tin học">Tin học</option>
+                                </optgroup>
+                                <optgroup label="Khối xã hội">
+                                    <option value="Ngữ văn">Ngữ văn</option>
+                                    <option value="Lịch sử">Lịch sử</option>
+                                    <option value="Địa lý">Địa lý</option>
+                                    <option value="Giáo dục công dân">Giáo dục công dân</option>
+                                    <option value="Ngoại ngữ">Ngoại ngữ</option>
+                                </optgroup>
+                            </select>
                         </div>
                         <div className="space-y-1">
                             <label className="text-sm font-semibold text-gray-700">Loại báo cáo</label>

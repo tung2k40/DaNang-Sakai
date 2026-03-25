@@ -94,7 +94,7 @@ function ExamSection({ subject } = {}) {
                     </p>
 
                     <div className="flex justify-center gap-3 text-xs text-gray-500 mb-3 flex-wrap">
-                      {!subject && exam.subject && (
+                      {exam.subject && (
                         <span className="flex items-center gap-1 text-indigo-600 font-medium">
                           <i className="fa-solid fa-bookmark"></i>
                           {exam.subject}

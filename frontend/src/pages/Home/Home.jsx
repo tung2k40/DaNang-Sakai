@@ -1,8 +1,16 @@
 import { motion } from "framer-motion";
 import DocumentSection from "./DocumentSection";
 import ExamSection from "./ExamSection";
+import { useAuth } from "../../contexts/AuthContext";
+import AboutPage from "../../components/AboutPage";
 
 function Home({ selectedOption }) {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <AboutPage />;
+  }
+
   // Nếu đã chọn loại nội dung (tài liệu hoặc đề thi)
   if (selectedOption?.type === "tailieu") {
     return <DocumentSection subject={selectedOption.subject} />;
