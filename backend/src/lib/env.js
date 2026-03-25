@@ -9,9 +9,9 @@ const ENV = {
     CLIENT_URL: process.env.CLIENT_URL,
     JWT_SECRET: process.env.JWT_SECRET,
     JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
-    SMTP_EMAIL: process.env.SMTP_EMAIL,
-    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
     EMAIL_FROM_NAME: process.env.EMAIL_FROM_NAME,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL,
 };
 
 module.exports = {
