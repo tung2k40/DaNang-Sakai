@@ -6,11 +6,17 @@ const getTransporter = () => {
   if (!ENV.SMTP_EMAIL || !ENV.SMTP_PASSWORD) return null;
   if (!transporter) {
     transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
         user: ENV.SMTP_EMAIL,
         pass: ENV.SMTP_PASSWORD,
       },
+      // Thêm Timeout bắt buộc để tránh treo Request đăng ký vĩnh viễn
+      connectionTimeout: 10000, 
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
     });
   }
   return transporter;
