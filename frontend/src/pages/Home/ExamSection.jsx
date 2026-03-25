@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
-import { getExamsAPI } from "../../api/examAPI";
+import { getExamsAPI, getMyExamsAPI } from "../../api/examAPI";
 import SkeletonCard from "../../components/ui/SkeletonCard";
+import Pagination from "../../components/ui/Pagination";
 
-function ExamSection({ subject } = {}) {
+function ExamSection({ subject, isMine } = {}) {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
-  const heading = subject || "Tất cả môn học";
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
+
+  const heading = isMine ? "Đề thi đã tải lên" : (subject || "Tất cả môn học");
 
   useEffect(() => {
     const fetchExams = async () => {
       setLoading(true);
       try {
-        const data = await getExamsAPI(subject || undefined);
+        const data = isMine 
+          ? await getMyExamsAPI() 
+          : await getExamsAPI(subject || undefined);
         setExams(data);
+        setCurrentPage(1); // Reset page when subject or data changes
       } catch {
         toast.error("Không thể tải đề thi. Vui lòng thử lại!");
       } finally {
@@ -24,6 +31,13 @@ function ExamSection({ subject } = {}) {
 
     fetchExams();
   }, [subject]);
+
+  // Logic phân trang
+  const totalPages = Math.ceil(exams.length / itemsPerPage);
+  const currentExams = exams.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div className="relative flex flex-col items-center mt-10">
@@ -52,8 +66,8 @@ function ExamSection({ subject } = {}) {
         {/* Danh sách đề thi */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading
-            ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
-            : exams.map((exam, index) => (
+            ? Array.from({ length: itemsPerPage }).map((_, i) => <SkeletonCard key={i} />)
+            : currentExams.map((exam, index) => (
                 <motion.div
                   key={exam._id}
                   initial={{ opacity: 0, y: 40 }}
@@ -125,8 +139,16 @@ function ExamSection({ subject } = {}) {
 
         {!loading && exams.length === 0 && (
           <p className="text-gray-500 text-center mt-6">
-            Hiện chưa có đề thi cho môn học này.
+            {isMine ? "Bạn chưa tải lên đề thi nào." : "Hiện chưa có đề thi cho môn học này."}
           </p>
+        )}
+
+        {!loading && exams.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         )}
       </motion.div>
     </div>

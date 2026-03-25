@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
-import { getDocumentsAPI } from "../../api/documentAPI";
+import { getDocumentsAPI, getMyDocumentsAPI } from "../../api/documentAPI";
 import SkeletonCard from "../../components/ui/SkeletonCard";
+import Pagination from "../../components/ui/Pagination";
 
-function DocumentSection({ subject } = {}) {
+function DocumentSection({ subject, isMine } = {}) {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const heading = subject || "Tất cả môn học";
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
+
+  const heading = isMine ? "Tài liệu đã tải lên" : (subject || "Tất cả môn học");
 
   useEffect(() => {
     const fetchDocuments = async () => {
       setLoading(true);
       try {
-        const data = await getDocumentsAPI(subject || undefined);
+        const data = isMine 
+          ? await getMyDocumentsAPI() 
+          : await getDocumentsAPI(subject || undefined);
         setDocuments(data);
+        setCurrentPage(1); // Reset page when subject or data changes
       } catch {
         toast.error("Không thể tải tài liệu. Vui lòng thử lại!");
       } finally {
@@ -24,6 +31,13 @@ function DocumentSection({ subject } = {}) {
 
     fetchDocuments();
   }, [subject]);
+
+  // Logic phân trang
+  const totalPages = Math.ceil(documents.length / itemsPerPage);
+  const currentDocuments = documents.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div className="relative flex flex-col items-center mt-10">
@@ -51,8 +65,8 @@ function DocumentSection({ subject } = {}) {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading
-            ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
-            : documents.map((doc, index) => (
+            ? Array.from({ length: itemsPerPage }).map((_, i) => <SkeletonCard key={i} />)
+            : currentDocuments.map((doc, index) => (
                 <motion.div
                   key={doc._id}
                   initial={{ opacity: 0, y: 40 }}
@@ -132,8 +146,16 @@ function DocumentSection({ subject } = {}) {
 
         {!loading && documents.length === 0 && (
           <p className="text-gray-500 text-center mt-6">
-            Hiện chưa có tài liệu cho môn học này.
+            {isMine ? "Bạn chưa tải lên tài liệu nào." : "Hiện chưa có tài liệu cho môn học này."}
           </p>
+        )}
+
+        {!loading && documents.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         )}
       </motion.div>
     </div>

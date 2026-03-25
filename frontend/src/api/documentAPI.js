@@ -11,6 +11,16 @@ export const getDocumentsAPI = async (subject) => {
     }
 };
 
+export const getMyDocumentsAPI = async () => {
+    try {
+        const res = await axiosInstance.get('/documents/mine');
+        const list = res.data?.data;
+        return Array.isArray(list) ? list : [];
+    } catch (err) {
+        throw err.response?.data || err;
+    }
+};
+
 export const getDocumentByIdAPI = async (id) => {
     try {
         const res = await axiosInstance.get(`/documents/${id}`);

@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import tung from "../assets/images/avttung.png";
-import giang from "../assets/images/avtgiang.png";
 
 export default function AboutPage() {
   const { scrollYProgress } = useScroll();
@@ -67,7 +66,7 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -82,7 +81,8 @@ export default function AboutPage() {
               </span>
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-              DaNang Scholar là Nền tảng học tập và chia sẻ tri thức dành cho học sinh, sinh viên và giáo viên — nơi học hỏi không giới hạn 🌱
+              DaNang Scholar là Nền tảng học tập và chia sẻ tri thức dành cho
+              học sinh, sinh viên và giáo viên — nơi học hỏi không giới hạn 🌱
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -115,12 +115,12 @@ export default function AboutPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-100 to-indigo-50 rounded-3xl transform -rotate-3 scale-105 -z-10 transition-transform duration-500 hover:rotate-0"></div>
               <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop"
                 alt="Students collaborating"
                 className="rounded-3xl shadow-2xl object-cover h-[500px] w-full"
               />
               {/* Floating element */}
-              <motion.div 
+              <motion.div
                 style={{ y }}
                 className="absolute -bottom-10 -right-4 md:-right-10 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl w-64 border border-white/50"
               >
@@ -134,7 +134,7 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                  <motion.div 
+                  <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: "85%" }}
                     transition={{ duration: 1, delay: 0.5 }}
@@ -152,20 +152,37 @@ export default function AboutPage() {
             >
               <h2 className="text-4xl font-bold text-slate-900 mb-6 leading-tight">
                 Xây dựng hệ sinh thái <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">học tập trực tuyến</span> toàn diện
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+                  học tập trực tuyến
+                </span>{" "}
+                toàn diện
               </h2>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                DaNang Scholar mang đến trải nghiệm học tập hiện đại, giúp bạn dễ dàng truy cập tài nguyên, kết nối bạn bè và phát triển bản thân mỗi ngày.
+                DaNang Scholar mang đến trải nghiệm học tập hiện đại, giúp bạn
+                dễ dàng truy cập tài nguyên, kết nối bạn bè và phát triển bản
+                thân mỗi ngày.
               </p>
-              
+
               <div className="space-y-6">
                 {[
-                  { icon: "fa-book-open", title: "Kho tài liệu khổng lồ", desc: "Truy cập hàng ngàn bài giảng, đề thi và tài liệu học tập chuẩn hóa." },
-                  { icon: "fa-users", title: "Cộng đồng năng động", desc: "Kết nối và thảo luận cùng hàng ngàn học sinh, sinh viên và giáo viên." },
-                  { icon: "fa-rocket", title: "Phát triển tư duy", desc: "Khơi dậy niềm đam mê khám phá và sáng tạo trong học tập." }
+                  {
+                    icon: "fa-book-open",
+                    title: "Kho tài liệu khổng lồ",
+                    desc: "Truy cập hàng ngàn bài giảng, đề thi và tài liệu học tập chuẩn hóa.",
+                  },
+                  {
+                    icon: "fa-users",
+                    title: "Cộng đồng năng động",
+                    desc: "Kết nối và thảo luận cùng hàng ngàn học sinh, sinh viên và giáo viên.",
+                  },
+                  {
+                    icon: "fa-rocket",
+                    title: "Phát triển tư duy",
+                    desc: "Khơi dậy niềm đam mê khám phá và sáng tạo trong học tập.",
+                  },
                 ].map((item, i) => (
-                  <motion.div 
-                    key={i} 
+                  <motion.div
+                    key={i}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -176,8 +193,12 @@ export default function AboutPage() {
                       <i className={`fa-solid ${item.icon}`}></i>
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold text-slate-800 mb-1">{item.title}</h4>
-                      <p className="text-slate-600 leading-relaxed">{item.desc}</p>
+                      <h4 className="text-xl font-bold text-slate-800 mb-1">
+                        {item.title}
+                      </h4>
+                      <p className="text-slate-600 leading-relaxed">
+                        {item.desc}
+                      </p>
                     </div>
                   </motion.div>
                 ))}
@@ -195,9 +216,16 @@ export default function AboutPage() {
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-blue-600 font-bold tracking-wider uppercase text-sm mb-2 block">Cốt Lõi Của Chúng Tôi</span>
-            <h2 className="text-4xl font-extrabold text-slate-900 mb-6">Giá Trị Cốt Lõi</h2>
-            <p className="text-lg text-slate-600">Những nguyên tắc định hình nền tảng và cách chúng tôi phục vụ cộng đồng học tập tại Đà Nẵng và trên toàn quốc.</p>
+            <span className="text-blue-600 font-bold tracking-wider uppercase text-sm mb-2 block">
+              Cốt Lõi Của Chúng Tôi
+            </span>
+            <h2 className="text-4xl font-extrabold text-slate-900 mb-6">
+              Giá Trị Cốt Lõi
+            </h2>
+            <p className="text-lg text-slate-600">
+              Những nguyên tắc định hình nền tảng và cách chúng tôi phục vụ cộng
+              đồng học tập tại Đà Nẵng và trên toàn quốc.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -212,13 +240,23 @@ export default function AboutPage() {
               >
                 <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-slate-50 border border-slate-100 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-sm">
                   {item.isImage ? (
-                    <img src={item.icon} alt={item.title} className="w-8 h-8 object-contain" />
+                    <img
+                      src={item.icon}
+                      alt={item.title}
+                      className="w-8 h-8 object-contain"
+                    />
                   ) : (
-                    <i className={`${item.icon} ${item.color} text-3xl drop-shadow-sm`}></i>
+                    <i
+                      className={`${item.icon} ${item.color} text-3xl drop-shadow-sm`}
+                    ></i>
                   )}
                 </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors">{item.title}</h3>
-                <p className="text-slate-600 leading-relaxed font-medium opacity-90">{item.desc}</p>
+                <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-slate-600 leading-relaxed font-medium opacity-90">
+                  {item.desc}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -228,13 +266,20 @@ export default function AboutPage() {
       {/* Team Section */}
       <section className="py-24 bg-white relative">
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
-        
+
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-blue-600 font-bold tracking-wider uppercase text-sm mb-2 block">Những Người Đứng Sau</span>
-            <h2 className="text-4xl font-extrabold text-slate-900 mb-6">Đội Ngũ Phát Triển</h2>
+            <span className="text-blue-600 font-bold tracking-wider uppercase text-sm mb-2 block">
+              Những Người Đứng Sau
+            </span>
+            <h2 className="text-4xl font-extrabold text-slate-900 mb-6">
+              Đội Ngũ Phát Triển
+            </h2>
             <p className="text-lg text-slate-600 leading-relaxed">
-              Nhóm sinh viên đam mê công nghệ đứng sau nền tảng DaNang Scholar, với khát vọng số hóa giáo dục và kết nối tri thức.
+              Là một lập trình viên tâm huyết với công nghệ, tôi xây dựng nền
+              tảng DaNang Scholar với mong muốn số hóa giáo dục, kết nối tri
+              thức và mang lại những giá trị tiện ích nhất cho cộng đồng học
+              thuật.
             </p>
           </div>
 
@@ -242,15 +287,9 @@ export default function AboutPage() {
             {[
               {
                 name: "Hoàng Thanh Tùng",
-                role: "Frontend Developer & UI/UX Design",
+                role: "Fullstack Developer",
                 color: "from-blue-500 to-indigo-600",
                 avatar: tung,
-              },
-              {
-                name: "Đinh Vĩnh Giang",
-                role: "Backend Architecture & Database",
-                color: "from-emerald-400 to-teal-500",
-                avatar: giang,
               },
             ].map((member, i) => (
               <motion.div
@@ -262,24 +301,27 @@ export default function AboutPage() {
                 className="w-full max-w-[320px]"
               >
                 <div className="relative group rounded-[2.5rem] bg-slate-50 pt-16 pb-10 px-8 border border-white shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col items-center hover:-translate-y-2">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${member.color} opacity-0 group-hover:opacity-[0.03] rounded-[2.5rem] transition-opacity duration-500`}></div>
-                  
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${member.color} opacity-0 group-hover:opacity-[0.03] rounded-[2.5rem] transition-opacity duration-500`}
+                  ></div>
+
                   <div className="absolute -top-16 relative w-40 h-40 mb-6 group-hover:-translate-y-4 transition-transform duration-500">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${member.color} rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500 scale-90`}></div>
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${member.color} rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500 scale-90`}
+                    ></div>
                     <img
                       src={member.avatar}
                       alt={member.name}
                       className="relative w-full h-full rounded-full object-cover border-[6px] border-white shadow-xl z-10 bg-white"
                     />
                   </div>
-                  
+
                   <h4 className="text-2xl font-bold text-slate-900 mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 transition-all text-center">
                     {member.name}
                   </h4>
                   <p className="text-slate-500 font-medium text-center text-sm uppercase tracking-wide">
                     {member.role}
                   </p>
-                  
                 </div>
               </motion.div>
             ))}
@@ -293,10 +335,10 @@ export default function AboutPage() {
           <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-blue-600/20 to-transparent rounded-full blur-3xl"></div>
           <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-indigo-600/20 to-transparent rounded-full blur-3xl"></div>
         </div>
-        
+
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
-            Sẵn sàng bắt đầu hành trình <br/> học tập của bạn?
+            Sẵn sàng bắt đầu hành trình <br /> học tập của bạn?
           </h2>
           <Link
             to="/signup"

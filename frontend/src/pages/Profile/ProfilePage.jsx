@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
+import DocumentSection from "../Home/DocumentSection";
+import ExamSection from "../Home/ExamSection";
 
 export default function ProfilePage() {
     const { user } = useAuth();
@@ -65,6 +67,12 @@ export default function ProfilePage() {
                                 Thông tin chung
                             </button>
                             <button
+                                onClick={() => setActiveTab("history")}
+                                className={`pb-3 px-4 text-sm font-medium transition-colors border-b-2 ${activeTab === "history" ? "border-blue-600 text-blue-700" : "border-transparent text-gray-500 hover:text-gray-700"}`}
+                            >
+                                Lịch sử Upload
+                            </button>
+                            <button
                                 onClick={() => setActiveTab("settings")}
                                 className={`pb-3 px-4 text-sm font-medium transition-colors border-b-2 ${activeTab === "settings" ? "border-blue-600 text-blue-700" : "border-transparent text-gray-500 hover:text-gray-700"}`}
                             >
@@ -114,6 +122,18 @@ export default function ProfilePage() {
                                 <i className="fa-solid fa-screwdriver-wrench text-5xl text-gray-300 mb-4"></i>
                                 <p>Tính năng thiết lập đang được phát triển.</p>
                                 <p className="text-sm mt-1">Vui lòng quay lại sau nhé!</p>
+                            </motion.div>
+                        )}
+
+                        {activeTab === "history" && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.98 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.4 }}
+                                className="space-y-12"
+                            >
+                                <DocumentSection isMine={true} />
+                                <ExamSection isMine={true} />
                             </motion.div>
                         )}
                     </div>

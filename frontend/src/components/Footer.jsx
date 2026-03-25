@@ -10,10 +10,12 @@ export default function Footer() {
             DaNang Scholar
           </h3>
           <p className="text-sm leading-relaxed text-justify">
-            Nền tảng học tập và chia sẻ tri thức dành cho học sinh, sinh viên và giáo viên tại Đà Nẵng.
+            Nền tảng học tập và chia sẻ tri thức dành cho học sinh, sinh viên và
+            giáo viên tại Đà Nẵng.
           </p>
           <p className="text-sm leading-relaxed text-justify mt-1">
-            Cùng nhau lan tỏa tinh thần học tập suốt đời, xây dựng cộng đồng học tập hiện đại.
+            Cùng nhau lan tỏa tinh thần học tập suốt đời, xây dựng cộng đồng học
+            tập hiện đại.
           </p>
         </div>
 
@@ -24,22 +26,34 @@ export default function Footer() {
           </h4>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link to="/about" className="hover:text-blue-600 transition-colors">
+              <Link
+                to="/about"
+                className="hover:text-blue-600 transition-colors"
+              >
                 Về chúng tôi
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="hover:text-blue-600 transition-colors">
+              <Link
+                to="/contact"
+                className="hover:text-blue-600 transition-colors"
+              >
                 Liên hệ
               </Link>
             </li>
             <li>
-              <Link to="/contribute" className="hover:text-blue-600 transition-colors">
+              <Link
+                to="/contribute"
+                className="hover:text-blue-600 transition-colors"
+              >
                 Đóng góp tài liệu
               </Link>
             </li>
             <li>
-              <Link to="/policy" className="hover:text-blue-600 transition-colors">
+              <Link
+                to="/policy"
+                className="hover:text-blue-600 transition-colors"
+              >
                 Chính sách bảo mật
               </Link>
             </li>
@@ -54,10 +68,10 @@ export default function Footer() {
           <p className="text-sm mb-3">
             Email:{" "}
             <a
-              href="mailto:sgddt@danang.gov.vn"
+              href="mailto:thanhtung26042004@gmail.com"
               className="text-blue-600 hover:underline"
             >
-              sgddt@danang.gov.vn
+              thanhtung26042004@gmail.com
             </a>
           </p>
 
@@ -82,7 +96,7 @@ export default function Footer() {
 
             {/* Email */}
             <a
-              href="mailto:sgddt@danang.gov.vn"
+              href="mailto:thanhtung26042004@gmail.com"
               aria-label="Email"
               className="text-indigo-500 hover:text-indigo-600 transition transform hover:scale-110"
             >
@@ -94,8 +108,8 @@ export default function Footer() {
 
       {/* Bản quyền */}
       <div className="border-t border-gray-200 mt-8 pt-4 text-center text-xs text-gray-500">
-        © 2025{" "}
-        <span className="font-medium text-gray-700">DaNang Scholar</span>. Tất cả quyền được bảo lưu.
+        © 2025 <span className="font-medium text-gray-700">DaNang Scholar</span>
+        . Tất cả quyền được bảo lưu.
       </div>
     </footer>
   );
