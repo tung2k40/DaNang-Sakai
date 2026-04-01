@@ -5,12 +5,8 @@ import { useNavigate } from "react-router-dom";
 import signupIllustration from "../../assets/images/signup.png";
 import backgroundlogin from "../../assets/images/bglogin.jpg";
 import OTPModal from "../../components/OTPModal";
-import toast, { Toaster } from 'react-hot-toast';
-import {
-  registerAPI,
-  verifyOTP,
-  resendOTP,
-} from '../../api/authAPI';
+import toast, { Toaster } from "react-hot-toast";
+import { registerAPI, verifyOTP, resendOTP } from "../../api/authAPI";
 
 export default function SignUpPage() {
   const [showOTPModal, setShowOTPModal] = useState(false);
@@ -42,27 +38,27 @@ export default function SignUpPage() {
       toast.success("Đăng ký thành công! Vui lòng nhập OTP");
       setShowOTPModal(true);
     } catch (err) {
-      const msg = err?.response?.data?.message || err?.message || "Đăng ký thất bại!";
+      const msg =
+        err?.response?.data?.message || err?.message || "Đăng ký thất bại!";
       toast.error(msg);
     }
   };
 
   const handlSubmitOTP = async (otp) => {
     try {
-      await verifyOTP(
-        {
-          email: formData.email,
-          otp: otp,
-        }
-      );
+      await verifyOTP({
+        email: formData.email,
+        otp: otp,
+      });
       toast.success("Xác minh tài khoản thành công!");
 
       setShowOTPModal(false);
       setTimeout(() => {
         navigate("/login");
-      }, 1000)
+      }, 1000);
     } catch (err) {
-      const msg = err?.response?.data?.message || err?.message || "OTP không hợp lệ!";
+      const msg =
+        err?.response?.data?.message || err?.message || "OTP không hợp lệ!";
       toast.error(msg);
     }
   };
@@ -72,13 +68,16 @@ export default function SignUpPage() {
       await resendOTP(formData.email);
       toast.success("Đã gửi mã OTP mới!");
     } catch (err) {
-      const msg = err?.response?.data?.message || err?.message || "OTP không hợp lệ!";
+      const msg =
+        err?.response?.data?.message || err?.message || "OTP không hợp lệ!";
       toast.error(msg);
     }
   };
 
   return (
-    <>  <Toaster position="top-center" />
+    <>
+      {" "}
+      <Toaster position="top-center" />
       <div
         className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{
@@ -92,17 +91,17 @@ export default function SignUpPage() {
             <div className="text-center mb-8">
               <GraduationCap className="w-10 h-10 text-cyan-600 mx-auto mb-3" />
               <h1 className="text-3xl font-extrabold text-gray-800">
-                Create Account
+                Tạo tài khoản
               </h1>
               <p className="text-gray-500 mt-1">
-                Join our learning community today
+                Tham gia cộng đồng học tập của chúng tôi ngay hôm nay
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name
+                  Họ và tên
                 </label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
@@ -112,7 +111,7 @@ export default function SignUpPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, fullName: e.target.value })
                     }
-                    placeholder="John Doe"
+                    placeholder="Nguyễn Văn A"
                     className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   />
                 </div>
@@ -120,7 +119,7 @@ export default function SignUpPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address
+                  Địa chỉ Email
                 </label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
@@ -130,7 +129,7 @@ export default function SignUpPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    placeholder="youremail@domain.com"
+                    placeholder="Nguyenvana@gmail.com"
                     className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   />
                 </div>
@@ -138,7 +137,7 @@ export default function SignUpPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
+                  Mật khẩu
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
@@ -148,7 +147,7 @@ export default function SignUpPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, password: e.target.value })
                     }
-                    placeholder="Enter your password"
+                    placeholder="Nhập mật khẩu của bạn"
                     className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   />
                 </div>
@@ -158,17 +157,17 @@ export default function SignUpPage() {
                 type="submit"
                 className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-cyan-400/50 hover:shadow-cyan-400/80 mt-6"
               >
-                Sign Up
+                Đăng ký
               </button>
             </form>
 
             <p className="text-center mt-5 text-sm text-gray-600">
-              Already have an account?{" "}
+              Đã có tài khoản?{" "}
               <Link
                 to="/login"
                 className="text-cyan-600 hover:text-cyan-700 font-semibold"
               >
-                Log in
+                Đăng nhập
               </Link>
             </p>
           </div>
@@ -180,20 +179,20 @@ export default function SignUpPage() {
               className="w-full max-w-xs mx-auto drop-shadow-xl"
             />
             <h3 className="mt-6 text-2xl font-bold text-cyan-700">
-              Start Your Journey Today
+              Bắt đầu hành trình của bạn ngay hôm nay
             </h3>
             <p className="text-gray-600 mt-2 mb-4 text-sm">
-              Unlock your potential with a few simple steps.
+              Khai phá tiềm năng của bạn bằng vài bước đơn giản.
             </p>
             <div className="flex justify-center gap-3 flex-wrap">
               <span className="px-3 py-1 text-xs bg-cyan-200/80 text-cyan-800 font-medium rounded-full">
-                Free Access
+                Truy cập miễn phí
               </span>
               <span className="px-3 py-1 text-xs bg-cyan-200/80 text-cyan-800 font-medium rounded-full">
-                Fast Setup
+                Thiết lập nhanh
               </span>
               <span className="px-3 py-1 text-xs bg-cyan-200/80 text-cyan-800 font-medium rounded-full">
-                Secure & Private
+                Riêng tư & Bảo mật
               </span>
             </div>
           </div>
