@@ -1,12 +1,17 @@
 import { motion } from "framer-motion";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import DocumentSection from "../Home/DocumentSection";
 import ExamSection from "../Home/ExamSection";
 
 export default function ProfilePage() {
     const { user } = useAuth();
     const [activeTab, setActiveTab] = useState("info");
+
+    if (user?.role === 'admin') {
+        return <Navigate to="/admin/documents" replace />;
+    }
 
     if (!user) {
         return (

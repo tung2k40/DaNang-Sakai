@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
-import { getDocumentsAPI, getMyDocumentsAPI } from "../../api/documentAPI";
-import SkeletonCard from "../../components/ui/SkeletonCard";
-import Pagination from "../../components/ui/Pagination";
+import { getDocumentsAPI, getMyDocumentsAPI } from "../../../api/documentAPI";
+import SkeletonCard from "../../../components/ui/SkeletonCard";
+import Pagination from "../../../components/ui/Pagination";
 
 function DocumentSection({ subject, isMine } = {}) {
   const [documents, setDocuments] = useState([]);

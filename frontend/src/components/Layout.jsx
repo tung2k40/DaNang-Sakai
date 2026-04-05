@@ -23,7 +23,7 @@ export default function Layout({ children }) {
     <div className="flex flex-col min-h-screen relative overflow-x-hidden">
       <Header />
       <div className="flex flex-1 relative w-full">
-        {user && <Sidebar onSelect={setSelectedOption} />}
+        {user && user.role !== 'admin' && <Sidebar onSelect={setSelectedOption} />}
         <div className="flex-1 flex flex-col min-w-0 w-full relative">
           <main className="flex-1 bg-gray-50">
             {children &&

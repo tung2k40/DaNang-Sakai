@@ -54,20 +54,22 @@ export default function Header() {
             </Link>
           ) : (
             <>
-              <div className="hidden sm:flex items-center gap-2">
-                <button
-                  onClick={() => setOpenUpload(true)}
-                  className="px-4 py-2 bg-blue-50 text-blue-700 font-semibold rounded-full border border-blue-200 hover:bg-blue-100 hover:shadow-sm transition items-center gap-2"
-                >
-                  <i className="fa-solid fa-cloud-arrow-up"></i> Tải tài liệu
-                </button>
-                <button
-                  onClick={() => setOpenExamUpload(true)}
-                  className="px-4 py-2 bg-green-50 text-green-700 font-semibold rounded-full border border-green-200 hover:bg-green-100 hover:shadow-sm transition items-center gap-2 flex"
-                >
-                  <i className="fa-solid fa-file-arrow-up"></i> Tải đề thi
-                </button>
-              </div>
+              {user?.role !== 'admin' && (
+                <div className="hidden sm:flex items-center gap-2">
+                  <button
+                    onClick={() => setOpenUpload(true)}
+                    className="px-4 py-2 bg-blue-50 text-blue-700 font-semibold rounded-full border border-blue-200 hover:bg-blue-100 hover:shadow-sm transition items-center gap-2"
+                  >
+                    <i className="fa-solid fa-cloud-arrow-up"></i> Tải tài liệu
+                  </button>
+                  <button
+                    onClick={() => setOpenExamUpload(true)}
+                    className="px-4 py-2 bg-green-50 text-green-700 font-semibold rounded-full border border-green-200 hover:bg-green-100 hover:shadow-sm transition items-center gap-2 flex"
+                  >
+                    <i className="fa-solid fa-file-arrow-up"></i> Tải đề thi
+                  </button>
+                </div>
+              )}
               <div
                 className="relative group flex items-center gap-3 cursor-pointer"
                 onMouseEnter={() => setOpen(true)}
@@ -92,26 +94,41 @@ export default function Header() {
                     <p className="font-semibold text-gray-800 line-clamp-1">{user.fullName}</p>
                 </div>
                 
-                <button
-                  onClick={() => navigate("/profile")}
-                  className="block w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition flex items-center gap-2"
-                >
-                  <i className="fa-solid fa-user text-blue-500"></i> Hồ sơ cá nhân
-                </button>
+                {user?.role !== 'admin' && (
+                  <button
+                    onClick={() => navigate("/profile")}
+                    className="block w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition flex items-center gap-2"
+                  >
+                    <i className="fa-solid fa-user text-blue-500"></i> Hồ sơ cá nhân
+                  </button>
+                )}
 
-                <button
-                  onClick={() => setOpenUpload(true)}
-                  className="block sm:hidden w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition flex items-center gap-2"
-                >
-                  <i className="fa-solid fa-cloud-arrow-up text-blue-500"></i> Tải tài liệu
-                </button>
+                {user?.role === 'admin' && (
+                  <button
+                    onClick={() => navigate("/admin/documents")}
+                    className="block w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition flex items-center gap-2 font-semibold"
+                  >
+                    <i className="fa-solid fa-shield-halved text-blue-600"></i> Quản trị viên
+                  </button>
+                )}
 
-                <button
-                  onClick={() => setOpenExamUpload(true)}
-                  className="block sm:hidden w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-green-600 transition flex items-center gap-2"
-                >
-                  <i className="fa-solid fa-file-arrow-up text-green-500"></i> Tải đề thi
-                </button>
+                {user?.role !== 'admin' && (
+                  <>
+                    <button
+                      onClick={() => setOpenUpload(true)}
+                      className="block sm:hidden w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition flex items-center gap-2"
+                    >
+                      <i className="fa-solid fa-cloud-arrow-up text-blue-500"></i> Tải tài liệu
+                    </button>
+
+                    <button
+                      onClick={() => setOpenExamUpload(true)}
+                      className="block sm:hidden w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-green-600 transition flex items-center gap-2"
+                    >
+                      <i className="fa-solid fa-file-arrow-up text-green-500"></i> Tải đề thi
+                    </button>
+                  </>
+                )}
 
                 <button
                   onClick={() => setOpenConfirm(true)}

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
-import { getExamsAPI, getMyExamsAPI } from "../../api/examAPI";
-import SkeletonCard from "../../components/ui/SkeletonCard";
-import Pagination from "../../components/ui/Pagination";
+import { getExamsAPI, getMyExamsAPI } from "../../../api/examAPI";
+import SkeletonCard from "../../../components/ui/SkeletonCard";
+import Pagination from "../../../components/ui/Pagination";
 
 function ExamSection({ subject, isMine } = {}) {
   const [exams, setExams] = useState([]);

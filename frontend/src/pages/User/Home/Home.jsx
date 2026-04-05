@@ -1,11 +1,16 @@
 import { motion } from "framer-motion";
+import { Navigate } from "react-router-dom";
 import DocumentSection from "./DocumentSection";
 import ExamSection from "./ExamSection";
-import { useAuth } from "../../contexts/AuthContext";
-import AboutPage from "../../components/AboutPage";
+import { useAuth } from "../../../contexts/AuthContext";
+import AboutPage from "../../../components/AboutPage";
 
 function Home({ selectedOption }) {
   const { user } = useAuth();
+
+  if (user?.role === 'admin') {
+    return <Navigate to="/admin/documents" replace />;
+  }
 
   if (!user) {
     return <AboutPage />;

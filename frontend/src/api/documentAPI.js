@@ -38,3 +38,21 @@ export const uploadDocumentAPI = async (formData) => {
         throw err.response?.data || err;
     }
 };
+export const getPendingDocumentsAPI = async () => {
+    try {
+        const res = await axiosInstance.get('/documents/admin/pending');
+        const list = res.data?.data;
+        return Array.isArray(list) ? list : [];
+    } catch (err) {
+        throw err.response?.data || err;
+    }
+};
+
+export const updateDocumentStatusAPI = async (id, status) => {
+    try {
+        const res = await axiosInstance.put(`/documents/admin/${id}/status`, { status });
+        return res.data;
+    } catch (err) {
+        throw err.response?.data || err;
+    }
+};
