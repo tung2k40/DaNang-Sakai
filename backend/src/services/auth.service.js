@@ -81,6 +81,7 @@ const login = async (email, password) => {
             id: user.id,
             email: user.email,
             fullName: user.fullName,
+            role: user.role,
         },
         ENV.JWT_SECRET,
         { expiresIn: ENV.JWT_EXPIRES_IN || "30m" }

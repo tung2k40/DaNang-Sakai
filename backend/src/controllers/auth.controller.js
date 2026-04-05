@@ -97,6 +97,7 @@ const getMe = async (req, res) => {
         fullName: req.user.fullName,
         email: req.user.email,
         verified: true,
+        role: req.user.role,
       },
     });
   } catch (error) {

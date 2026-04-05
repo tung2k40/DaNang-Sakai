@@ -2,7 +2,7 @@ const express = require('express');
 const { validate } = require('../middleware/validate');
 const documentValidator = require('../validations/document.validation');
 const documentController = require('../controllers/document.controller');
-const { protect } = require('../middleware/auth.middleware');
+const { protect, admin } = require('../middleware/auth.middleware');
 const upload = require('../middleware/upload.middleware');
 
 const router = express.Router();
@@ -10,6 +10,9 @@ const router = express.Router();
 router.get('/', documentController.getAll);
 
 router.get('/mine', protect, documentController.getMine);
+
+router.get('/admin/pending', protect, admin, documentController.getPending);
+router.put('/admin/:id/status', protect, admin, documentController.updateStatus);
 
 router.get('/:id', documentController.getById);
 

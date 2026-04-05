@@ -85,4 +85,36 @@ const getMine = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, create, remove, getMine };
+const getPending = async (req, res) => {
+    try {
+        const documents = await documentService.getPending();
+        return res.status(200).json({
+            status: 'success',
+            data: documents,
+        });
+    } catch (error) {
+        return res.status(error.statusCode || 500).json({
+            status: 'error',
+            message: error.message,
+        });
+    }
+};
+
+const updateStatus = async (req, res) => {
+    try {
+        const { status } = req.body;
+        const document = await documentService.updateStatus(req.params.id, status);
+        return res.status(200).json({
+            status: 'success',
+            message: 'Cập nhật trạng thái thành công',
+            data: document,
+        });
+    } catch (error) {
+        return res.status(error.statusCode || 500).json({
+            status: 'error',
+            message: error.message,
+        });
+    }
+};
+
+module.exports = { getAll, getById, create, remove, getMine, getPending, updateStatus };
