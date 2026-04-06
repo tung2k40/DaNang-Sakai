@@ -60,7 +60,7 @@ subjects.forEach((subject) => {
       type: typesDocument[i % typesDocument.length],
       subject: subject,
       grade: `Lớp ${10 + (i % 3)}`,
-      author: `Thầy/Cô ${i % 2 === 0 ? "Nguyễn" : "Trần"} Văn ${String.fromCharCode(65 + (i % 26))}`,
+      author: `${i % 2 === 0 ? "Nguyễn" : "Trần"} Văn ${String.fromCharCode(65 + (i % 26))}`,
       description: variation.desc,
       fileUrl: "#",
     });
@@ -73,7 +73,7 @@ subjects.forEach((subject) => {
       type: typesExam[i % typesExam.length],
       subject: subject,
       grade: `Lớp ${10 + (i % 3)}`,
-      author: `Thầy/Cô Phạm Thị ${String.fromCharCode(75 + (i % 15))}`,
+      author: `Phạm Thị ${String.fromCharCode(75 + (i % 15))}`,
       description: `Đề thi đánh giá năng lực môn ${subject} tập trung vào kiến thức chuẩn bị thi học kỳ.`,
       fileUrl: "#",
     });
