@@ -12,7 +12,7 @@ import {
   BookOpen,
   FileQuestion,
 } from "lucide-react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export default function AdminDocumentReview() {
   const [documents, setDocuments] = useState([]);
@@ -57,7 +57,7 @@ export default function AdminDocumentReview() {
 
   return (
     <div className="bg-gray-50 min-h-screen py-10 px-4 sm:px-6 lg:px-8">
-      <Toaster position="top-right" />
+
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header Section */}
         <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">

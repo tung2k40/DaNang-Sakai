@@ -4,7 +4,7 @@ import { Mail, Lock, GraduationCap } from "lucide-react";
 import loginIllustration from "../../assets/images/login.png";
 import backgroundlogin from "../../assets/images/bglogin.jpg";
 import { loginAPI } from "../../api/authAPI";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import ForgotPasswordModal from "../../components/ForgotPasswordModal";
@@ -43,7 +43,6 @@ export default function LoginPage() {
   return (
     <>
       {" "}
-      <Toaster position="top-center" />
       <div
         className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{

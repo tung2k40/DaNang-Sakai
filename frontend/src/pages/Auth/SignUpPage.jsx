@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import signupIllustration from "../../assets/images/signup.png";
 import backgroundlogin from "../../assets/images/bglogin.jpg";
 import OTPModal from "../../components/OTPModal";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { registerAPI, verifyOTP, resendOTP } from "../../api/authAPI";
 
 export default function SignUpPage() {
@@ -77,7 +77,6 @@ export default function SignUpPage() {
   return (
     <>
       {" "}
-      <Toaster position="top-center" />
       <div
         className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{
