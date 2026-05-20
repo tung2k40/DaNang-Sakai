@@ -4,6 +4,7 @@ import Header from "./Header";
 import Sidebar from "./sidebars/Sidebar";
 import Footer from "./Footer";
 import React from "react";
+import ChatbotWindow from "./ui/ChatbotWindow";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Layout({ children }) {
@@ -34,6 +35,7 @@ export default function Layout({ children }) {
           <Footer />
         </div>
       </div>
+      <ChatbotWindow />
     </div>
   );
 }

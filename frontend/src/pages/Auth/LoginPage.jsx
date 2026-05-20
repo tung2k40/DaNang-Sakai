@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Lock, GraduationCap } from "lucide-react";
+import { Mail, Lock, GraduationCap, Eye, EyeOff } from "lucide-react";
 import loginIllustration from "../../assets/images/login.png";
 import backgroundlogin from "../../assets/images/bglogin.jpg";
 import { loginAPI } from "../../api/authAPI";
@@ -13,6 +13,7 @@ import { supabase } from "../../utils/supabase";
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showForgotModal, setShowForgotModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { fetchUser } = useAuth();
 
@@ -112,15 +113,23 @@ export default function LoginPage() {
                 <div className="relative">
                   <Lock className="absolute left-3.5 top-3 w-5 h-5 text-gray-400" />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={formData.password}
                     onChange={(e) =>
                       setFormData({ ...formData, password: e.target.value })
                     }
                     placeholder="Nhập mật khẩu"
-                    className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all duration-200"
+                    className="w-full pl-11 pr-11 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all duration-200"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3.5 top-3 text-gray-400 hover:text-gray-600 transition-colors"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
                 </div>
               </div>
 
