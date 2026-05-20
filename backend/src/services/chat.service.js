@@ -7,7 +7,37 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Cấu hình models
 const embeddingModel = genAI.getGenerativeModel({ model: "gemini-embedding-2" });
-const chatModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+// Danh sách LLM fallback khi bị 503/429
+const LLM_MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash-lite', 'gemini-flash-lite-latest', 'gemini-flash-latest'];
+
+/**
+ * Gọi LLM với cơ chế fallback tự động khi bị 503/429
+ */
+async function generateWithFallback(prompt) {
+    const isRetriable = (err) => {
+        const msg = err?.message || '';
+        return msg.includes('503') || msg.includes('Service Unavailable') ||
+               msg.includes('high demand') || msg.includes('429') ||
+               msg.includes('Too Many Requests') || msg.includes('quota');
+    };
+
+    for (const modelName of LLM_MODELS) {
+        try {
+            const model = genAI.getGenerativeModel({ model: modelName });
+            const result = await model.generateContent(prompt);
+            return result.response.text();
+        } catch (err) {
+            if (isRetriable(err)) {
+                console.warn(`[Chat] Model ${modelName} lỗi, thử tiếp...`);
+                await new Promise(res => setTimeout(res, 600));
+                continue;
+            }
+            throw err;
+        }
+    }
+    throw new Error('Tất cả AI models đều đang quá tải, vui lòng thử lại sau.');
+}
 
 /**
  * Chia văn bản thành các đoạn nhỏ (chunks)
@@ -132,20 +162,18 @@ ${contextText}\n\n`;
         prompt += `CÂU HỎI CỦA NGƯỜI DÙNG:
 ${userQuestion}`;
 
-        // Sinh câu trả lời
-        const result = await chatModel.generateContent(prompt);
-        return result.response.text();
+        // Sinh câu trả lời với fallback
+        return await generateWithFallback(prompt);
 
     } catch (error) {
         console.error('Lỗi khi Chat:', error);
         
-        // Nếu lỗi do $vectorSearch (ví dụ chưa tạo index), fallback về dot product đơn giản hoặc trả lời không cần context
+        // Nếu lỗi do $vectorSearch (ví dụ chưa tạo index), fallback về trả lời không cần context
         if (error?.message?.includes('$vectorSearch')) {
             console.warn("Chưa cấu hình Vector Index trên MongoDB Atlas! AI sẽ trả lời không cần RAG Context.");
             const fallbackPrompt = `Bạn là một trợ lý AI thông minh của hệ thống "Danang_Sakai". 
 Câu hỏi của người dùng: ${userQuestion}`;
-            const fallbackResult = await chatModel.generateContent(fallbackPrompt);
-            return fallbackResult.response.text();
+            return await generateWithFallback(fallbackPrompt);
         }
         
         throw error;
