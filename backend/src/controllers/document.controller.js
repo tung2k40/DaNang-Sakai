@@ -117,4 +117,19 @@ const updateStatus = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, create, remove, getMine, getPending, updateStatus };
+const aiReview = async (req, res) => {
+    try {
+        const result = await documentService.aiReview(req.params.id);
+        return res.status(200).json({
+            status: 'success',
+            data: result,
+        });
+    } catch (error) {
+        return res.status(error.statusCode || 500).json({
+            status: 'error',
+            message: error.message,
+        });
+    }
+};
+
+module.exports = { getAll, getById, create, remove, getMine, getPending, updateStatus, aiReview };

@@ -13,6 +13,7 @@ router.get('/mine', protect, documentController.getMine);
 
 router.get('/admin/pending', protect, admin, documentController.getPending);
 router.put('/admin/:id/status', protect, admin, documentController.updateStatus);
+router.post('/admin/:id/ai-review', protect, admin, documentController.aiReview);
 
 router.get('/:id', documentController.getById);
 
