@@ -75,6 +75,34 @@ const login = async (req, res) => {
   }
 };
 
+const ssoLogin = async (req, res) => {
+  try {
+    const { access_token } = req.body;
+    if (!access_token) {
+      return res.status(400).json({ status: "error", message: "Thiếu access_token" });
+    }
+
+    const { token } = await authService.ssoLogin(access_token);
+
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(200).json({
+      status: "success",
+      message: "Đăng nhập SSO thành công",
+    });
+  } catch (error) {
+    return res.status(error.statusCode || 400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+
 const logout = (req, res) => {
   res.clearCookie("jwt", {
     httpOnly: true,
@@ -96,6 +124,7 @@ const getMe = async (req, res) => {
         id: req.user.id,
         fullName: req.user.fullName,
         email: req.user.email,
+        avatar: req.user.avatar,
         verified: true,
         role: req.user.role,
       },
@@ -147,6 +176,7 @@ module.exports = {
   verifyOTP,
   resendOTP,
   login,
+  ssoLogin,
   logout,
   getMe,
   forgotPassword,

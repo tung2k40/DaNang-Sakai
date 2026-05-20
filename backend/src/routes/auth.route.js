@@ -30,6 +30,11 @@ router.post(
     authController.login
 );
 
+router.post(
+    '/sso',
+    authController.ssoLogin
+);
+
 router.get(
     '/me',
     protect,

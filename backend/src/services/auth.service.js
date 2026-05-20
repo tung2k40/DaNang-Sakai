@@ -81,6 +81,54 @@ const login = async (email, password) => {
             id: user.id,
             email: user.email,
             fullName: user.fullName,
+            avatar: user.avatar,
+            role: user.role,
+        },
+        ENV.JWT_SECRET,
+        { expiresIn: ENV.JWT_EXPIRES_IN || "30m" }
+    );
+
+    return { token, user };
+};
+
+const ssoLogin = async (access_token) => {
+    // Khởi tạo Supabase client để verify token
+    const { createClient } = require('@supabase/supabase-js');
+    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+    
+    // Gọi API của Supabase để lấy thông tin user từ access_token
+    const { data: { user: supabaseUser }, error } = await supabase.auth.getUser(access_token);
+    if (error || !supabaseUser) throw new AppError("Xác thực SSO thất bại: " + (error?.message || "Token không hợp lệ"), 401);
+
+    const email = supabaseUser.email;
+    const fullName = supabaseUser.user_metadata?.full_name || supabaseUser.user_metadata?.name || email.split('@')[0];
+    const avatar = supabaseUser.user_metadata?.avatar_url || supabaseUser.user_metadata?.picture || null;
+
+    // Tìm user trong MongoDB
+    let user = await User.findOne({ email });
+
+    // Nếu chưa có, tự động tạo mới
+    if (!user) {
+        user = new User({
+            email,
+            password: Math.random().toString(36).slice(-10) + 'A1!', // Mật khẩu ngẫu nhiên
+            fullName,
+            avatar,
+            verified: true, // Vì đăng nhập qua SSO (Google/Github) nên coi như đã verified
+        });
+        await user.save();
+    } else if (!user.avatar && avatar) {
+        user.avatar = avatar;
+        await user.save();
+    }
+
+    // Tạo JWT nội bộ
+    const token = jwt.sign(
+        {
+            id: user.id,
+            email: user.email,
+            fullName: user.fullName,
+            avatar: user.avatar,
             role: user.role,
         },
         ENV.JWT_SECRET,
@@ -127,6 +175,7 @@ module.exports = {
     verifyOTP,
     resendOTP,
     login,
+    ssoLogin,
     forgotPassword,
     resetPassword,
 };
