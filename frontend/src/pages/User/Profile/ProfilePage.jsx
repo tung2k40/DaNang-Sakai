@@ -48,9 +48,18 @@ export default function ProfilePage() {
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.2 }}
-                            className="w-32 h-32 rounded-full bg-blue-600 text-white flex items-center justify-center text-4xl font-bold font-serif mb-4 shadow-lg border-4 border-white"
+                            className="w-32 h-32 rounded-full bg-blue-600 text-white flex items-center justify-center text-4xl font-bold font-serif mb-4 shadow-lg border-4 border-white overflow-hidden"
                         >
-                            {getInitials(user.fullName)}
+                            {user.avatar ? (
+                                <img
+                                    src={user.avatar}
+                                    alt={user.fullName}
+                                    className="w-full h-full object-cover"
+                                    referrerPolicy="no-referrer"
+                                />
+                            ) : (
+                                getInitials(user.fullName)
+                            )}
                         </motion.div>
                         <h2 className="text-xl font-bold text-gray-800 text-center">{user.fullName}</h2>
                         <span className={`mt-2 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 ${user.verified ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700"}`}>

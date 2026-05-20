@@ -2,6 +2,7 @@ import Layout from "../components/Layout";
 import Home from "../pages/User/Home/Home";
 import LoginPage from "../pages/Auth/LoginPage";
 import SignUpPage from "../pages/Auth/SignUpPage";
+import AuthCallback from "../pages/Auth/AuthCallback";
 import AboutPage from "../components/AboutPage";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute";
@@ -29,6 +30,10 @@ export const appRoutes = [
                 <LoginPage />
             </GuestRoute>
         ),
+    },
+    {
+        path: "/auth/callback",
+        element: <AuthCallback />,
     },
     {
         path: "/signup",

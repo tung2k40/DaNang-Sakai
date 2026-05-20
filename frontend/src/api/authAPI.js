@@ -10,6 +10,15 @@ export const loginAPI = async ({ email, password }) => {
     }
 };
 
+export const loginWithSSOAPI = async ({ access_token }) => {
+    try {
+        const res = await axiosInstance.post("/auth/sso", { access_token });
+        return res.data;
+    } catch (err) {
+        throw err.response?.data || err;
+    }
+};
+
 export const registerAPI = async ({ email, password, fullName }) => {
     try {
         const res = await axiosInstance.post("/auth/register", {

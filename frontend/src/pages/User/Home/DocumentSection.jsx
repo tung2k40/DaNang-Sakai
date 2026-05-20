@@ -40,28 +40,37 @@ function DocumentSection({ subject, isMine } = {}) {
   );
 
   return (
-    <div className="relative flex flex-col items-center mt-10">
+    <div className={`relative flex flex-col items-center ${isMine ? 'mt-0' : 'mt-10'}`}>
       {/* Tiêu đề môn học */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="absolute -top-5 text-blue-700 text-4xl font-extrabold px-10 py-1 bg-blue-100 rounded-full border border-blue-300 shadow-md"
-      >
-        {heading}
-      </motion.div>
+      {!isMine && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute -top-5 text-blue-700 text-4xl font-extrabold px-10 py-1 bg-blue-100 rounded-full border border-blue-300 shadow-md"
+          >
+            {heading}
+          </motion.div>
+      )}
 
       {/* Khung chính */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
-        className="p-8 bg-white rounded-2xl shadow-xl border border-gray-200 w-full max-w-6xl mt-10"
+        className={`w-full ${isMine ? '' : 'p-8 bg-white rounded-2xl shadow-xl border border-gray-200 max-w-6xl mt-10'}`}
       >
-        <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center flex items-center justify-center gap-2">
-          <i className="fa-solid fa-book-open text-blue-500 text-3xl"></i>
-          Tài liệu học tập
-        </h2>
+        {isMine ? (
+            <h3 className="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-2">
+                <i className="fa-solid fa-book-open text-blue-600"></i>
+                Tài liệu đã tải lên
+            </h3>
+        ) : (
+            <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center flex items-center justify-center gap-2">
+              <i className="fa-solid fa-book-open text-blue-500 text-3xl"></i>
+              Tài liệu học tập
+            </h2>
+        )}
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading

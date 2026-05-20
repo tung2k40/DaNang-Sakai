@@ -76,9 +76,18 @@ export default function Header() {
                 onMouseLeave={() => setOpen(false)}
               >
               <div className="text-gray-700 font-medium group-hover:text-blue-600 transition flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center border border-blue-200">
-                  {user.fullName ? user.fullName[0].toUpperCase() : "U"}
-                </div>
+                {user.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={user.fullName}
+                    className="w-8 h-8 rounded-full border border-gray-200 object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center border border-blue-200">
+                    {user.fullName ? user.fullName[0].toUpperCase() : "U"}
+                  </div>
+                )}
                 <span className="hidden sm:inline">Xin chào, <span className="font-semibold">{user.fullName}</span></span>
               </div>
 
