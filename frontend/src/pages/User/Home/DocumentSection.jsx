@@ -47,7 +47,7 @@ function DocumentSection({ subject, isMine } = {}) {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="absolute -top-5 text-blue-700 text-4xl font-extrabold px-10 py-1 bg-blue-100 rounded-full border border-blue-300 shadow-md"
+            className="absolute -top-5 text-blue-700 text-2xl md:text-4xl font-extrabold px-6 md:px-10 py-1 bg-blue-100 rounded-full border border-blue-300 shadow-md text-center whitespace-nowrap z-10"
           >
             {heading}
           </motion.div>
@@ -58,7 +58,7 @@ function DocumentSection({ subject, isMine } = {}) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
-        className={`w-full ${isMine ? '' : 'p-8 bg-white rounded-2xl shadow-xl border border-gray-200 max-w-6xl mt-10'}`}
+        className={`w-full ${isMine ? '' : 'p-5 md:p-8 bg-white rounded-2xl shadow-xl border border-gray-200 max-w-6xl mt-6 md:mt-10 relative'}`}
       >
         {isMine ? (
             <h3 className="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-2">
@@ -72,7 +72,7 @@ function DocumentSection({ subject, isMine } = {}) {
             </h2>
         )}
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-6">
           {loading
             ? Array.from({ length: itemsPerPage }).map((_, i) => <SkeletonCard key={i} />)
             : currentDocuments.map((doc, index) => (

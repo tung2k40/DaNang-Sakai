@@ -25,9 +25,9 @@ function Home({ selectedOption }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-6">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8 md:py-12 px-4 md:px-6 overflow-hidden">
       {/* Hero Section */}
-      <div className="flex flex-col items-center text-center mt-8 mb-8">
+      <div className="flex flex-col items-center text-center mt-4 md:mt-8 mb-8 md:mb-12">
         <motion.h1
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -54,13 +54,13 @@ function Home({ selectedOption }) {
       </div>
 
       {/* Dữ liệu từ API (MongoDB) */}
-      <div className="max-w-6xl mx-auto w-full space-y-4 mb-16">
+      <div className="max-w-6xl mx-auto w-full space-y-4 mb-12 md:mb-16">
         <DocumentSection />
         <ExamSection />
       </div>
 
       {/* Feature Cards */}
-      <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20">
         {[
           {
             icon: "fa-solid fa-book-open",
@@ -98,7 +98,7 @@ function Home({ selectedOption }) {
       </div>
 
       {/* Info Section */}
-      <div className="max-w-4xl mx-auto text-center mb-20">
+      <div className="max-w-4xl mx-auto text-center mb-12 md:mb-20">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

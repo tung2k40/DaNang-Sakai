@@ -3,7 +3,18 @@ import { motion } from "framer-motion";
 function Pagination({ currentPage, totalPages, onPageChange }) {
   if (totalPages <= 1) return null;
 
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  let startPage = Math.max(1, currentPage - 1);
+  let endPage = Math.min(totalPages, startPage + 2);
+
+  // Điều chỉnh lại nếu ở các trang cuối để luôn hiển thị 3 số (nếu có đủ)
+  if (endPage - startPage < 2) {
+    startPage = Math.max(1, endPage - 2);
+  }
+
+  const pages = [];
+  for (let i = startPage; i <= endPage; i++) {
+    pages.push(i);
+  }
 
   return (
     <div className="flex justify-center items-center gap-2 mt-8">
@@ -17,7 +28,12 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         <i className="fa-solid fa-chevron-left mr-1"></i> Trước
       </motion.button>
 
-      {/* Danh sách các số trang */}
+      {/* Hiển thị ... nếu có trang bị ẩn ở đầu */}
+      {startPage > 1 && (
+        <span className="px-2 font-bold text-gray-400 tracking-widest">...</span>
+      )}
+
+      {/* Danh sách các số trang (tối đa 3 số) */}
       {pages.map((page) => (
         <motion.button
           key={page}
@@ -33,6 +49,11 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
           {page}
         </motion.button>
       ))}
+
+      {/* Hiển thị ... nếu có trang bị ẩn ở cuối */}
+      {endPage < totalPages && (
+        <span className="px-2 font-bold text-gray-400 tracking-widest">...</span>
+      )}
 
       <motion.button
         whileHover={{ scale: 1.05 }}
