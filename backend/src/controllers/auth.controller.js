@@ -79,7 +79,9 @@ const ssoLogin = async (req, res) => {
   try {
     const { access_token } = req.body;
     if (!access_token) {
-      return res.status(400).json({ status: "error", message: "Thiếu access_token" });
+      return res
+        .status(400)
+        .json({ status: "error", message: "Thiếu access_token" });
     }
 
     const { token } = await authService.ssoLogin(access_token);
