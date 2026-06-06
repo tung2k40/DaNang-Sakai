@@ -3,12 +3,13 @@ import Home from "../pages/User/Home/Home";
 import LoginPage from "../pages/Auth/LoginPage";
 import SignUpPage from "../pages/Auth/SignUpPage";
 import AuthCallback from "../pages/Auth/AuthCallback";
-import AboutPage from "../components/AboutPage";
-import ProtectedRoute from "./ProtectedRoute";
-import GuestRoute from "./GuestRoute";
-import AdminRoute from "./AdminRoute";
+import AboutPage from "../pages/AboutPage";
+import ProtectedRoute from "./protected.route";
+import GuestRoute from "./guest.route";
+import AdminRoute from "./admin.route";
 import ProfilePage from "../pages/User/Profile/ProfilePage";
 import AdminDocumentReview from "../pages/Admin/AdminDocumentReview";
+import NotFoundPage from "../pages/errors/NotFoundPage";
 
 export const appRoutes = [
     { path: "/home", element: <Layout><Home /></Layout> },
@@ -53,5 +54,6 @@ export const appRoutes = [
                 </Layout>
             </AdminRoute>
         )
-    }
+    },
+    { path: "*", element: <NotFoundPage /> },
 ];

@@ -9,9 +9,15 @@ import { useAuth } from "../contexts/AuthContext";
 
 export default function Layout({ children }) {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
+
+  // Đóng sidebar khi chuyển route
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [location.pathname]);
 
   // 🔁 Khi chọn tài liệu hoặc đề thi => tự chuyển về /home
   useEffect(() => {
@@ -20,12 +26,20 @@ export default function Layout({ children }) {
     }
   }, [selectedOption, location.pathname, navigate]);
 
+  const showSidebar = user && user.role !== "admin";
+
   return (
-    <div className="flex flex-col min-h-screen relative overflow-x-hidden">
-      <Header />
-      <div className="flex flex-1 relative w-full">
-        {user && user.role !== 'admin' && <Sidebar onSelect={setSelectedOption} />}
-        <div className="flex-1 flex flex-col min-w-0 w-full relative">
+    <div className="h-screen overflow-hidden flex flex-col">
+      <Header onMenuClick={() => setSidebarOpen(true)} showMenuBtn={showSidebar} />
+      <div className="flex flex-1 overflow-hidden pt-[72px]">
+        {showSidebar && (
+          <Sidebar
+            onSelect={setSelectedOption}
+            isOpen={sidebarOpen}
+            onClose={() => setSidebarOpen(false)}
+          />
+        )}
+        <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
           <main className="flex-1 bg-gray-50">
             {children &&
               React.cloneElement(children, {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { logoutAPI } from "../api/authAPI";
@@ -8,13 +8,23 @@ import UploadExamModal from "./UploadExamModal";
 import logo from "../assets/images/logo.jpg";
 import { toast } from "react-hot-toast";
 
-export default function Header() {
+
+export default function Header({ onMenuClick, showMenuBtn }) {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openUpload, setOpenUpload] = useState(false);
   const [openExamUpload, setOpenExamUpload] = useState(false);
+
+  useEffect(() => {
+    window.__openUploadDocumentModal = () => setOpenUpload(true);
+    window.__openUploadExamModal = () => setOpenExamUpload(true);
+    return () => {
+      delete window.__openUploadDocumentModal;
+      delete window.__openUploadExamModal;
+    };
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -26,10 +36,21 @@ export default function Header() {
     }
   };
 
+
   return (
     <>
-      <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/40 backdrop-blur-2xl backdrop-saturate-150 border-b border-white/30 shadow-sm px-4 md:px-6 py-4 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          {/* Hamburger button - mobile only */}
+          {showMenuBtn && (
+            <button
+              onClick={onMenuClick}
+              className="md:hidden p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+              aria-label="Mở menu"
+            >
+              <i className="fa-solid fa-bars text-xl"></i>
+            </button>
+          )}
           <Link
             to="/"
             className="flex items-center hover:opacity-80 transition"
@@ -39,7 +60,8 @@ export default function Header() {
               src={logo}
               alt="Logo"
             />
-            <h1 className="text-xl font-bold text-blue-600">DaNang Scholar</h1>
+            <h1 className="text-xl font-bold text-blue-600 hidden sm:block">DaNang Scholar</h1>
+            <h1 className="text-lg font-bold text-blue-600 sm:hidden">DNS</h1>
           </Link>
         </div>
 

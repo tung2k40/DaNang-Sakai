@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../utils/supabase";
+import { supabase } from "../../lib/supabase";
 import { loginWithSSOAPI } from "../../api/authAPI";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";

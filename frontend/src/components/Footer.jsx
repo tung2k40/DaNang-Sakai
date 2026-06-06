@@ -34,24 +34,34 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link
-                to="/contact"
-                className="hover:text-blue-600 transition-colors"
+              <a
+                href="#contact-info"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("contact-info")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="hover:text-blue-600 transition-colors cursor-pointer"
               >
                 Liên hệ
-              </Link>
+              </a>
             </li>
             <li>
-              <Link
-                to="/contribute"
-                className="hover:text-blue-600 transition-colors"
+              <button
+                onClick={() => {
+                  if (window.__openUploadDocumentModal) {
+                    window.__openUploadDocumentModal();
+                  } else {
+                    window.location.href = "/login";
+                  }
+                }}
+                className="hover:text-blue-600 transition-colors text-left bg-transparent border-0 p-0 cursor-pointer"
               >
                 Đóng góp tài liệu
-              </Link>
+              </button>
             </li>
             <li>
               <Link
-                to="/policy"
+                to="/about"
                 className="hover:text-blue-600 transition-colors"
               >
                 Chính sách bảo mật
@@ -61,7 +71,7 @@ export default function Footer() {
         </div>
 
         {/* Liên hệ */}
-        <div>
+        <div id="contact-info">
           <h4 className="text-sm font-semibold text-gray-800 uppercase tracking-wide mb-3">
             Liên hệ
           </h4>

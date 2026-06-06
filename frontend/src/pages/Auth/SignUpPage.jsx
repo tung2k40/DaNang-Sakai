@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { Mail, Lock, User, GraduationCap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import signupIllustration from "../../assets/images/signup.png";
-import backgroundlogin from "../../assets/images/bglogin.jpg";
+
 import OTPModal from "../../components/OTPModal";
 import toast from "react-hot-toast";
 import { registerAPI, verifyOTP, resendOTP } from "../../api/authAPI";
-import { supabase } from "../../utils/supabase";
+import { supabase } from "../../lib/supabase";
 
 export default function SignUpPage() {
   const [showOTPModal, setShowOTPModal] = useState(false);
@@ -93,17 +93,37 @@ export default function SignUpPage() {
 
   return (
     <>
-      <div
-        className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat relative"
-        style={{
-          backgroundImage: `url(${backgroundlogin})`,
-          backgroundAttachment: "fixed",
-        }}
-      >
-        {/* Overlay to ensure background image doesn't clash with content */}
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
+      <div className="auth-bg">
+        {/* Aurora floating orbs */}
+        <div className="auth-orb auth-orb-1"></div>
+        <div className="auth-orb auth-orb-2"></div>
+        <div className="auth-orb auth-orb-3"></div>
+        <div className="auth-orb auth-orb-4"></div>
+        <div className="auth-orb auth-orb-5"></div>
 
-        <div className="relative z-10 flex flex-col md:flex-row w-[90%] max-w-5xl rounded-2xl shadow-2xl overflow-hidden bg-white">
+        {/* Dot grid overlay */}
+        <div className="auth-grid"></div>
+
+        {/* Light beam */}
+        <div className="auth-beam"></div>
+
+        {/* Floating particles */}
+        <div className="auth-particles">
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+          <div className="auth-particle"></div>
+        </div>
+
+        <div className="relative z-10 flex flex-col md:flex-row w-[90%] max-w-5xl rounded-2xl overflow-hidden bg-white auth-card-glow my-10">
           
           {/* Left Form Section */}
           <div className="md:w-1/2 w-full p-8 md:p-12 flex flex-col justify-center bg-white">
